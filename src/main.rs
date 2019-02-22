@@ -8,19 +8,21 @@ use mel::modules::*;
 // Write the Docopt usage string.
 const USAGE: &'static str = "
 Usage:
-  mel
   mel init
-  mel <path>...
+  mel -l
+  mel <path>
   moni (--help | --version)
 
 Options:
   -h, --help     Show this screen
+  -l, --list     Show init til list
   -v, --version  Show version
 ";
 
 #[derive(Deserialize)]
 struct Args {
   cmd_init: bool,
+  flag_list: bool,
   arg_path: String,
 }
 
@@ -31,7 +33,7 @@ fn main() {
     .unwrap_or_else(|e| e.exit());
 
   if args.cmd_init {
-    match init::init() {
+    match init::Init() {
       Ok(()) => {
         println!("{}", "[ o ] Init Complete".green());
       },
@@ -40,7 +42,10 @@ fn main() {
       }
     }
   }
+  else if args.flag_list {
+    showlist::Show();
+  }
   else {
-
+    catfile::Cat_Til(args.arg_path);
   }
 }

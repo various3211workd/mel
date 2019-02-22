@@ -2,50 +2,59 @@ extern crate walkdir;
 
 use std::fs::*;
 use std::io::*;
+use std::path::PathBuf;
 //use std::str::Split;
 
 use serde_json::{Result, Value, json};
 use walkdir::WalkDir;
 
 /*
-  init function
+  Init function
 */
-pub fn init() -> Result<()> {
+pub fn Init() -> Result<()> {
 
-  put_json_file(create_json());
+  Put_Json_File(Create_Json());
 
   Ok(())
 }
 
 /*
-  create_json function
+  Create_Json function
 
   create til json tree.
 
   return Value
 */
-fn create_json() -> String {
+fn Create_Json() -> String {
 //fn create_json() -> Value {
   //let mut jsontree = json!({});
   let mut jsontree = "".to_string();
 
   for entry in WalkDir::new(".").into_iter().filter_map(|e| e.ok()) {
     if entry.file_name().to_string_lossy().ends_with(".md") {
-      
+      let path = PathBuf::from(String::from(entry.path().display().to_string()));
+      match canonicalize(&path) {
+        Ok(aa) => {
+          println!("{:?}", aa);
+          //jsontree.push_str(aa);
+          //jsontree.push_str("&");
+        },
+        Err(_) => {
+
+        }
+      }
+      //jsontree.push_str(canonicalize(&path));
+      //jsontree.push_str("&");
+
+
       /*
       for x in entry.path().display().to_string().split('\\') {
         println!("{}", x);
       }
-      */
-
-      /*
       jsontree = json!({
         f_name
       });
       */
-
-      jsontree.push_str(&entry.path().display().to_string());
-      jsontree.push_str("&");
     }
   }
 
@@ -54,14 +63,14 @@ fn create_json() -> String {
 }
 
 /*
-  put_json_file function
+  Put_Json_File function
 
   create json file on jsontree.
 
   @param jsontree Value
 */
-//fn put_json_file(jsontree: Value) {
-fn put_json_file(jsontree: String) {
+//fn Put_Json_File(jsontree: Value) {
+fn Put_Json_File(jsontree: String) {
 
   let mut f = BufWriter::new(
     OpenOptions::new()
