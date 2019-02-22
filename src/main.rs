@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate serde_derive;
 use docopt::Docopt;
+use colored::*;
 
 use mel::modules::*;
 
@@ -29,13 +30,17 @@ fn main() {
     .and_then(|d| d.deserialize())
     .unwrap_or_else(|e| e.exit());
 
-  println!("{}", args.cmd_init);
-
   if args.cmd_init {
-    init::init();
+    match init::init() {
+      Ok(()) => {
+        println!("{}", "[ o ] Init Complete".green());
+      },
+      Err(e) => {
+        panic!("{}", e.to_string().red());
+      }
+    }
   }
   else {
 
   }
 }
-
