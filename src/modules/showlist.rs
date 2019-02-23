@@ -18,7 +18,7 @@ pub fn show() {
   println!("[ ! ] Can Use Commands!!\n");
   
   for path in contents.split("&") {
-    let p: Vec<&str> = path.rsplit("\\").collect();
+    let p: Vec<&str> = path.rsplit("/").collect();
     
     if p[0] == "README.md" {
       println!("[ * ] {}/{}", p[1], p[0]);

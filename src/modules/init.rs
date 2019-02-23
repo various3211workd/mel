@@ -35,10 +35,14 @@ fn create_json() -> String {
         Ok(aa) => {
           // create full path
           let path_vec: Vec<&str> = aa.split("\\").collect();
-          let full_path = &path_vec[3..path_vec.len()]
-            .into_iter()
-            .map(|i| i.to_string() + "\\").collect::<String>();
-          jsontree.push_str(&full_path);
+          let mut index = 0;
+          for p in path_vec[3..path_vec.len()].into_iter() {
+            jsontree.push_str(&p);
+            if index != path_vec.len() - 4 {
+              jsontree.push_str("/");
+            }
+            index += 1;
+          }
           jsontree.push_str("&");
         }
         Err(e) => {
