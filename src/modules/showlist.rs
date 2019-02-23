@@ -2,14 +2,13 @@ use std::fs::File;
 use std::io::prelude::*;
 
 /*
-  Show function
+  show function
 
   shows initTree.json list.
 
   return None
 */
-#[warn(non_snake_case)]
-pub fn Show() {
+pub fn show() {
   let filename = "initTree.json";
 
   let mut f = File::open(filename).expect("file not found");

@@ -11,7 +11,7 @@ Usage:
   mel init
   mel -l
   mel <path>
-  moni (--help | --version)
+  mel (--help | --version)
 
 Options:
   -h, --help     Show this screen
@@ -33,7 +33,7 @@ fn main() {
     .unwrap_or_else(|e| e.exit());
 
   if args.cmd_init {
-    match init::Init() {
+    match init::init() {
       Ok(()) => {
         println!("{}", "[ o ] Init Complete".green());
       },
@@ -43,9 +43,9 @@ fn main() {
     }
   }
   else if args.flag_list {
-    showlist::Show();
+    showlist::show();
   }
   else {
-    catfile::Cat_Til(args.arg_path);
+    catfile::cat_til(args.arg_path);
   }
 }

@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::prelude::*;
 
 /*
-  Cat_Til function
+  cat_til function
 
   cat til file.
 
@@ -10,7 +10,7 @@ use std::io::prelude::*;
 
   return None
 */
-pub fn Cat_Til(arg_path: String) {
+pub fn cat_til(arg_path: String) {
   
   // user cat file
   let show_path: Vec<&str> = arg_path.rsplit("\\").collect();
