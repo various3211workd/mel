@@ -26,13 +26,19 @@ pub fn init() -> Result<()> {
 fn create_json() -> String {
   let mut jsontree = "".to_string();
 
+  // push full file path
   for entry in WalkDir::new(".").into_iter().filter_map(|e| e.ok()) {
     if entry.file_name().to_string_lossy().ends_with(".md") {
       let path = PathBuf::from(String::from(entry.path().display().to_string()));
       let cwd = canonicalize(&path).unwrap();
       match cwd.into_os_string().into_string() {
         Ok(aa) => {
-          jsontree.push_str(&aa);
+          // create full path
+          let path_vec: Vec<&str> = aa.split("\\").collect();
+          let full_path = &path_vec[3..path_vec.len()]
+            .into_iter()
+            .map(|i| i.to_string() + "\\").collect::<String>();
+          jsontree.push_str(&full_path);
           jsontree.push_str("&");
         }
         Err(e) => {

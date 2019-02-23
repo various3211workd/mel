@@ -26,18 +26,24 @@ pub fn cat_til(arg_path: String) {
   //let b = arg_path;
 
   for path in contents.split("&") {
-    let p: Vec<&str> = path.rsplit("\\").collect();
+    let p: Vec<&str> = path.split("\\").collect();
+    
     if show_path[0] == "README.md" {
-      if show_path[1] == p[1] {
+      //if show_path[1] == p[1] {
+        let a = &p[3..p.len()];
+        println!("[DEBUG] {:?}", a);
+        /*
         let mut f = File::open(path).expect("file not found");
         let mut a = String::new();
         f.read_to_string(&mut a)
           .expect("something went wrong reading the file");
 
         println!("{}", a);
-      }
+        */
+      //}
     }
     else {
+      println!("[Else]\n{:?}\n{}\n{}", p, p[0], path);
       let mut f = File::open(path).expect("file not found");
       let mut a = String::new();
       f.read_to_string(&mut a)
