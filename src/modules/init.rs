@@ -21,8 +21,6 @@ pub fn init() -> Result<()> {
 /*
   create_json function
 
-  create til json tree.
-
   return Value
 */
 fn create_json() -> String {
@@ -37,8 +35,8 @@ fn create_json() -> String {
           jsontree.push_str(&aa);
           jsontree.push_str("&");
         }
-        Err(_) => {
-
+        Err(e) => {
+          panic!("{:?}", e);
         }
       }
     }
@@ -50,8 +48,6 @@ fn create_json() -> String {
 
 /*
   put_json_file function
-
-  create json file on jsontree.
 
   @param jsontree Value
 */

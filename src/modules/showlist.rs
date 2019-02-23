@@ -4,8 +4,6 @@ use std::io::prelude::*;
 /*
   show function
 
-  shows initTree.json list.
-
   return None
 */
 pub fn show() {
