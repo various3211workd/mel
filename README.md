@@ -25,7 +25,7 @@ $ mel list
 ```
 
 3. show tils  
-`mel` + `list line`
+`mel [list_line]`
 ```
 $ mel /mel/README.md
 
@@ -35,7 +35,7 @@ TIL(Today I Learning) + Memo
 
 Can look back my daily notes.
 
-## Uses
+## Usage
 
 1. Specification of til
 $ mel init
@@ -52,7 +52,7 @@ $ mel list
 [ * ] /modules/README.md
 
 3. show tils
-`mel` + `list line`
+`mel [list_line]`
 
 $ mel /mel/README.md
 

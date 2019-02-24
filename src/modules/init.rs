@@ -2,6 +2,7 @@ extern crate walkdir;
 
 use std::fs::*;
 use std::io::*;
+use std::env::*;
 use std::path::PathBuf;
 //use std::str::Split;
 
@@ -62,16 +63,41 @@ fn create_json() -> String {
   @param jsontree Value
 */
 fn put_json_file(jsontree: String) {
-
+  let initfile_path = "C:/Users/".to_owned() + &get_username() + "/.mel/initTree.json";
+  
+  // create .mel folder
+  create_dir_all("C:/Users/".to_owned() + &get_username() + "/.mel").unwrap_or_else(|why| {
+    println!("! {:?}", why.kind());
+  });
+  
+  // create initTree.json file
   let mut f = BufWriter::new(
     OpenOptions::new()
       .write(true)
-      .create(true)
       .truncate(true)
-      .open("initTree.json")
+      .open(initfile_path)
       .expect("[Error] can't create initTree.json file"));
 
   f.write(jsontree.as_bytes()).unwrap();
+}
+
+/*
+  get_username function
+  
+  return String
+*/
+fn get_username() -> String {
+  let user_name = match var_os("USERNAME") {
+    Some(val) => {
+      match val.into_string() {
+        Ok(val) => { val },
+        Err(e) => { panic!("{:?}", e); }
+      }
+    },
+    None => { panic!("cat't get user name..."); }
+  };
+
+  user_name
 }
 
 /*
