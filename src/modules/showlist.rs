@@ -21,11 +21,8 @@ pub fn show() {
   for path in contents.split("&") {
     let p: Vec<&str> = path.rsplit("/").collect();
     
-    if p[0] == "README.md" {
-      println!("[ * ] {}/{}", p[1], p[0]);
-    }
-    else {
-      println!("[ * ] {}", p[0]);
+    if p.len() > 3 {
+      println!("[ * ] /{}/{}", p[1], p[0]);
     }
   }
 }

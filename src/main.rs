@@ -9,20 +9,19 @@ use mel::modules::*;
 const USAGE: &'static str = "
 Usage:
   mel init
-  mel -l
+  mel list
   mel <path>
   mel (--help | --version)
 
 Options:
   -h, --help     Show this screen
-  -l, --list     Show init til list
   -v, --version  Show version
 ";
 
 #[derive(Deserialize)]
 struct Args {
   cmd_init: bool,
-  flag_list: bool,
+  cmd_list: bool,
   arg_path: String,
 }
 
@@ -42,7 +41,7 @@ fn main() {
       }
     }
   }
-  else if args.flag_list {
+  else if args.cmd_list {
     showlist::show();
   }
   else {
