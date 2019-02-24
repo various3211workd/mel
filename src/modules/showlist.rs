@@ -16,7 +16,7 @@ pub fn show() {
     Ok(_) => { },
     Err(e) => { panic!("{}", e); }
   }
-  println!("[ ! ] Can Use Commands!!\n");
+  println!("[ <3 ] Can Use Commands!!\n");
   
   for path in contents.split("&") {
     let p: Vec<&str> = path.rsplit("/").collect();
