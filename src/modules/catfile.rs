@@ -14,7 +14,6 @@ pub fn cat_til(arg_path: String) {
   // user cat file
   let show_path: Vec<&str> = arg_path.rsplit("/").collect();
 
-  // initTree.json file
   let mut f = File::open(get_init_path())
     .expect("file not found");
   
@@ -44,6 +43,27 @@ pub fn cat_til(arg_path: String) {
       break;
     }
   }
+}
+
+/*
+  cat_til_num function
+
+  @param num :usize
+
+  return None
+*/
+pub fn cat_til_num(num: usize) {
+  let mut f = File::open(get_init_path())
+    .expect("file not found");
+  
+  let mut contents = String::new();
+  f.read_to_string(&mut contents)
+    .expect("something went wrong reading the file");
+  
+  let init_path: Vec<&str> = contents.split("&").collect();
+  
+  // init file path loop
+  show_markdown(init_path[num].to_string());
 }
 
 /*

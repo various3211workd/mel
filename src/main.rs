@@ -16,18 +16,22 @@ const USAGE: &'static str = "
 Usage:
   mel init
   mel list
+  mel -n <num>
   mel <path>
   mel (--help | --version)
 
 Options:
   -h, --help     Show this screen
   -v, --version  Show version
+  -n, --number   Show list number
 ";
 
 #[derive(Deserialize)]
 struct Args {
   cmd_init: bool,
   cmd_list: bool,
+  flag_number: bool,
+  arg_num: usize,
   arg_path: String,
 }
 
@@ -54,6 +58,9 @@ fn main() {
   }
   else if args.cmd_list {
     showlist::show();
+  }
+  else if args.flag_number {
+    catfile::cat_til_num(args.arg_num);
   }
   else {
     catfile::cat_til(args.arg_path);

@@ -18,11 +18,14 @@ pub fn show() {
   }
   println!("[ <3 ] Can Use Commands!!\n");
   
+  let mut index = 0;
   for path in contents.split("&") {
     let p: Vec<&str> = path.rsplit("/").collect();
     
     if p.len() > 3 {
-      println!("[ * ] /{}/{}", p[1], p[0]);
+      println!("[ {} ] /{}/{}", index, p[1], p[0]);
     }
+
+    index += 1;
   }
 }
