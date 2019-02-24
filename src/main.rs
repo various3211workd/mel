@@ -1,8 +1,13 @@
 #[macro_use]
 extern crate serde_derive;
+extern crate wincolor;
 
 use docopt::Docopt;
-//use colored::*;
+use wincolor::{
+  Console, 
+  Color, 
+  Intense
+};
 
 use mel::modules::*;
 
@@ -33,14 +38,17 @@ fn main() {
     .unwrap_or_else(|e| e.exit());
 
   if args.cmd_init {
+    let mut con = Console::stdout().unwrap();
     match init::init() {
       Ok(()) => {
-        //println!("{}", "[ o ] Init Complete".green());
+        con.fg(Intense::Yes, Color::Cyan).unwrap();
         println!("[ o ] Init Complete");
+        con.reset().unwrap();
       },
       Err(e) => {
-        //panic!("{}", e.to_string().red());
-        panic!("{}", e.to_string());
+        con.fg(Intense::Yes, Color::Magenta).unwrap();
+        println!("{}", e.to_string());
+        con.reset().unwrap();
       }
     }
   }
