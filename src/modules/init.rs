@@ -67,6 +67,7 @@ fn put_json_file(jsontree: String) {
     OpenOptions::new()
       .write(true)
       .create(true)
+      .truncate(true)
       .open("initTree.json")
       .expect("[Error] can't create initTree.json file"));
 

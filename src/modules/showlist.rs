@@ -12,9 +12,10 @@ pub fn show() {
   let mut f = File::open(filename).expect("file not found");
 
   let mut contents = String::new();
-  f.read_to_string(&mut contents)
-    .expect("something went wrong reading the file");
-  
+  match f.read_to_string(&mut contents) {
+    Ok(_) => { },
+    Err(e) => { panic!("{}", e); }
+  }
   println!("[ ! ] Can Use Commands!!\n");
   
   for path in contents.split("&") {

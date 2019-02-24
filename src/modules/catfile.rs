@@ -18,9 +18,9 @@ pub fn cat_til(arg_path: String) {
     .expect("file not found");
   
   let mut contents = String::new();
-  
   f.read_to_string(&mut contents)
     .expect("something went wrong reading the file");
+  
   let init_path: Vec<&str> = contents.split("&").collect();
 
   // init file path loop
@@ -30,11 +30,11 @@ pub fn cat_til(arg_path: String) {
       
       if dest_path[1] == show_path[1] {
         let mut f = File::open(path).expect("file not found");
-        let mut a = String::new();
-        f.read_to_string(&mut a)
+        let mut buf = String::new();
+        f.read_to_string(&mut buf)
           .expect("something went wrong reading the file");
 
-        println!("{}", a);
+        println!("{}", buf);
       }
       else { }
     }
