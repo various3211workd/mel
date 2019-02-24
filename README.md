@@ -1,6 +1,6 @@
 # mel
 
-til(Today I Learning) + memo
+TIL(Today I Learning) + Memo
 
 Can look back my daily notes.
 
@@ -11,7 +11,13 @@ Can look back my daily notes.
 $ mel init
 ```
 
-2. show tils
+2. show init list
 ```
-$ mel
+$ mel list
+```
+
+3. show tils  
+`mel` + `list line`
+```
+$ mel /modules/a.md
 ```
