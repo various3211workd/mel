@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::prelude::*;
 
+use super::uname::get_init_path;
 /*
   cat_til function
 
@@ -14,7 +15,7 @@ pub fn cat_til(arg_path: String) {
   let show_path: Vec<&str> = arg_path.rsplit("/").collect();
 
   // initTree.json file
-  let mut f = File::open("initTree.json")
+  let mut f = File::open(get_init_path())
     .expect("file not found");
   
   let mut contents = String::new();

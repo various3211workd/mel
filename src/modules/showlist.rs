@@ -1,15 +1,15 @@
 use std::fs::File;
 use std::io::prelude::*;
 
+use super::uname::get_init_path;
 /*
   show function
 
   return None
 */
 pub fn show() {
-  let filename = "initTree.json";
 
-  let mut f = File::open(filename).expect("file not found");
+  let mut f = File::open(get_init_path()).expect("file not found");
 
   let mut contents = String::new();
   match f.read_to_string(&mut contents) {
