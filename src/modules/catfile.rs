@@ -4,7 +4,7 @@ use std::io::prelude::*;
 /*
   cat_til function
 
-  @param arg_path: String
+  @param arg_path :String
 
   return None
 */
@@ -45,6 +45,13 @@ pub fn cat_til(arg_path: String) {
   }
 }
 
+/*
+  show_markdown function
+
+  @param path :String
+
+  return Result<(), String>
+*/
 fn show_markdown(path: String) -> Result<(), String> {
   let mut f = File::open(path).expect("file not found");
   let mut a = String::new();
