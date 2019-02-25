@@ -5,16 +5,20 @@ TIL(Today I Learning) + Memo
 
 Can look back my daily notes.
 
-## Uses
 
-1. Specification of til
+## Donwload
+move release tab and donwload
+
+## Usage
+
+#### Specification of til
 ```
 PS>mel init
 
 [ o ] Init Complete
 ```
 
-2. show init list
+#### show init list
 ```
 PS>mel list
 
@@ -25,7 +29,7 @@ PS>mel list
 [ * ] /modules/README.md
 ```
 
-3. show tils  
+#### show tils  
 ```
 PS>mel [list_line] # or mel -n [list_number]
 
