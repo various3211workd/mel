@@ -2,6 +2,7 @@ use std::fs::File;
 use std::io::prelude::*;
 
 use super::uname::get_init_path;
+use super::markdown;
 /*
   cat_til function
 
@@ -75,10 +76,12 @@ pub fn cat_til_num(num: usize) {
 */
 fn show_markdown(path: String) -> Result<(), String> {
   let mut f = File::open(path).expect("file not found");
-  let mut a = String::new();
-  f.read_to_string(&mut a)
+  let mut buf = String::new();
+  f.read_to_string(&mut buf)
     .expect("something went wrong reading the file");
 
-  println!("{}", a);
+  println!("{}", buf);
+  markdown::parsing(buf);
+
   Ok(())
 }

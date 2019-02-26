@@ -11,14 +11,14 @@ move release tab and donwload
 
 ## Usage
 
-#### Specification of til
+### Specification of til
 ```
 PS>mel init
 
 [ o ] Init Complete
 ```
 
-#### show init list
+### show init list
 ```
 PS>mel list
 
@@ -29,11 +29,9 @@ PS>mel list
 [ * ] /modules/README.md
 ```
 
-#### show tils  
+### show tils  
 ```
 PS>mel [list_line] # or mel -n [list_number]
-
-$ mel /mel/README.md
 
 # mel
 
@@ -41,30 +39,13 @@ TIL(Today I Learning) + Memo
 
 Can look back my daily notes.
 
-## Usage
-
-1. Specification of til
-$ mel init
-
-[ o ] Init Complete
-
-2. show init list
-$ mel list
-
-[ ! ] Can Use Commands!!
-
-[ * ] /mel/README.md
-[ * ] /modules/a.md
-[ * ] /modules/README.md
-
-3. show tils
-`mel [list_line]`
+...
 
 $ mel /mel/README.md
 
 ```
 
-#### List Update
+### List Update
 ```
 PS>mel update
 [ U ] Update Complete
