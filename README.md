@@ -63,3 +63,9 @@ $ mel list
 $ mel /mel/README.md
 
 ```
+
+#### List Update
+```
+PS>mel update
+[ U ] Update Complete
+```

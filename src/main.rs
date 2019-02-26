@@ -16,6 +16,7 @@ const USAGE: &'static str = "
 Usage:
   mel init
   mel list
+  mel update
   mel -n <num>
   mel <path>
   mel (--help | --version)
@@ -30,6 +31,7 @@ Options:
 struct Args {
   cmd_init: bool,
   cmd_list: bool,
+  cmd_update: bool,
   flag_number: bool,
   arg_num: usize,
   arg_path: String,
@@ -57,7 +59,15 @@ fn main() {
     }
   }
   else if args.cmd_list {
-    showlist::show();
+    list::show();
+  }
+  // init file update
+  else if args.cmd_update {
+    init::update(); 
+    let mut con = Console::stdout().unwrap();
+    con.fg(Intense::Yes, Color::Cyan).unwrap();
+    println!("[ U ] Update Complete");
+    con.reset().unwrap();
   }
   else if args.flag_number {
     catfile::cat_til_num(args.arg_num);

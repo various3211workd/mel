@@ -1,4 +1,4 @@
 pub mod init;
-pub mod showlist;
+pub mod list;
 pub mod catfile;
 pub mod uname;
