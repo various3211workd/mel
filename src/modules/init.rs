@@ -27,7 +27,7 @@ fn create_init() -> String {
   let mut inittree = "".to_string();
   
   // current dir
-  inittree.push_str(&current_dir().unwrap().display().to_string());
+  inittree.push_str(&current_dir().unwrap().display().to_string().replace("\\","/"));
   inittree.push_str("&");
 
   // push full file path

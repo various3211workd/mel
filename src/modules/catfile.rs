@@ -11,7 +11,6 @@ use super::markdown;
   return None
 */
 pub fn cat_til(arg_path: String) {
-
   // user cat file
   let show_path: Vec<&str> = arg_path.rsplit("/").collect();
 
@@ -37,7 +36,8 @@ pub fn cat_til(arg_path: String) {
       }
     }
     else {
-      match show_markdown(path.to_string()) {
+      println!("{}", path.to_string() + &"/c" + &arg_path + &"/README.md".to_string());
+      match show_markdown(path.to_string() + &"/c" + &arg_path + &"/README.md".to_string()) {
         Ok(()) => {},
         Err(e) => { panic!("{}", e) },
       }

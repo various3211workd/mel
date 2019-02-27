@@ -19,13 +19,20 @@ pub fn show() {
   println!("[ <3 ] Can Use Commands!!\n");
   
   let mut index = 0;
-  for path in contents.split("&") {
+  let markdown_paths = contents.split("&").collect::<Vec<&str>>();
+  let init_path = markdown_paths[0];
+  let mut temp = "";
+  
+  for path in markdown_paths {
+    let a_path: String = path.replace(init_path, "");
     let p: Vec<&str> = path.rsplit("/").collect();
     
-    if p.len() > 3 {
-      println!("[ {} ] /{}/{}", index, p[1], p[0]);
-    }
-
+    //reload(a_path, p);
+    println!("[ {} ] {}", index, a_path);
+    
     index += 1;
   }
+}
+
+fn reload(a_path: String, p: Vec<&str>) {
 }
