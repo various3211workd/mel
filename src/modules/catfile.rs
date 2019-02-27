@@ -80,7 +80,6 @@ fn show_markdown(path: String) -> Result<(), String> {
   f.read_to_string(&mut buf)
     .expect("something went wrong reading the file");
 
-  println!("{}", buf);
   markdown::parsing(buf);
 
   Ok(())
