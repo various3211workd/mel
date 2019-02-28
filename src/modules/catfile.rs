@@ -35,14 +35,6 @@ pub fn cat_til(arg_path: String) {
         break;
       }
     }
-    else {
-      println!("{}", path.to_string() + &"/c" + &arg_path + &"/README.md".to_string());
-      match show_markdown(path.to_string() + &"/c" + &arg_path + &"/README.md".to_string()) {
-        Ok(()) => {},
-        Err(e) => { panic!("{}", e) },
-      }
-      break;
-    }
   }
 }
 

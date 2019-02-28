@@ -21,7 +21,7 @@ pub fn show() {
   let mut index = 0;
   let markdown_paths = contents.split("&").collect::<Vec<&str>>();
   let init_path = markdown_paths[0];
-  let mut temp = "";
+  //let mut temp = "";
   
   for path in markdown_paths {
     let a_path = path.replace(init_path, "");
