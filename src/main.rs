@@ -13,18 +13,22 @@ use mel::modules::*;
 
 // Write the Docopt usage string.
 const USAGE: &'static str = "
+mel is the coined term of 'memo' + '(TIL)Today I Learning'.
+Can look back my daily notes.
+
 Usage:
   mel init
   mel list
   mel update
-  mel -n <num>
-  mel <path>
+  mel [-o] -n <num>
+  mel [-o] <path>
   mel (--help | --version)
 
 Options:
   -h, --help     Show this screen
   -v, --version  Show version
   -n, --number   Show list number
+  -o, --html     Put html 
 ";
 
 #[derive(Deserialize)]
@@ -34,6 +38,7 @@ struct Args {
   cmd_update: bool,
   flag_number: bool,
   arg_num: usize,
+  flag_html: bool,
   arg_path: String,
 }
 
@@ -70,9 +75,9 @@ fn main() {
     con.reset().unwrap();
   }
   else if args.flag_number {
-    catfile::cat_til_num(args.arg_num);
+    catfile::cat_til_num(args.arg_num, args.flag_html);
   }
   else {
-    catfile::cat_til(args.arg_path);
+    catfile::cat_til(args.arg_path, args.flag_html);
   }
 }
