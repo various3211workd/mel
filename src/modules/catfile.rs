@@ -14,13 +14,12 @@ pub fn cat_til(arg_path: String) {
   // user cat file
 
   let mut a_path;
-  if !arg_path.ends_with("README.md") {
+  if !arg_path.ends_with(".md") {
     a_path = arg_path + "/README.md";
   }
   else {
     a_path = arg_path;
   }
-  
   let show_path: Vec<&str> = a_path.rsplit("/").collect();
 
   let mut f = File::open(get_init_path())
@@ -45,8 +44,11 @@ pub fn cat_til(arg_path: String) {
         }
         break;
       }
-    } else if show_path.len() >= 0 {
-      show_markdown(markdown_path.to_owned() + "/README.md");
+    } else if show_path.len() == 2 {
+      show_markdown(markdown_path.to_owned() + &a_path);
+      break;
+    } else if show_path.len() == 1 {
+      show_markdown(markdown_path.to_owned() + "/" + &a_path);
       break;
     }
   }
