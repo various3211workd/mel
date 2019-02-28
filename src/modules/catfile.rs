@@ -12,7 +12,16 @@ use super::markdown;
 */
 pub fn cat_til(arg_path: String) {
   // user cat file
-  let show_path: Vec<&str> = arg_path.rsplit("/").collect();
+
+  let mut a_path;
+  if !arg_path.ends_with("README.md") {
+    a_path = arg_path + "/README.md";
+  }
+  else {
+    a_path = arg_path;
+  }
+  
+  let show_path: Vec<&str> = a_path.rsplit("/").collect();
 
   let mut f = File::open(get_init_path())
     .expect("file not found");

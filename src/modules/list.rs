@@ -27,7 +27,15 @@ pub fn show() {
     let a_path = path.replace(init_path, "");
     let p: Vec<&str> = path.rsplit("/").collect();
     
-    if p[0].ends_with(".md") {
+    if p[0] == "README.md" {
+      if p.len() <= 5 {
+        println!("[ {} ] {}", index, a_path);
+      }
+      else {
+        println!("[ {} ] {}" ,index, a_path.replace("/README.md", ""));
+      }
+    }
+    else if p[0].ends_with(".md") {
       println!("[ {} ] {}", index, a_path);
     }
 
