@@ -10,7 +10,7 @@ use super::markdown;
 
   return None
 */
-pub fn cat_til(arg_path: String) {
+pub fn cat_til(arg_path: String, flag_html: bool) {
   // user cat file
 
   let mut a_path;
@@ -38,17 +38,14 @@ pub fn cat_til(arg_path: String) {
     if show_path.len() > 2 {
       let dest_path: Vec<&str> = path.rsplit("/").collect();
       if dest_path[1] == show_path[1] && dest_path[0] == show_path[0] {
-        match show_markdown(path.to_string()) {
-          Ok(()) => {},
-          Err(e) => { panic!("{}", e) },
-        }
+        show_markdown(path.to_string(), flag_html).unwrap();
         break;
       }
     } else if show_path.len() == 2 {
-      show_markdown(markdown_path.to_owned() + &a_path);
+      show_markdown(markdown_path.to_owned() + &a_path, flag_html).unwrap();
       break;
     } else if show_path.len() == 1 {
-      show_markdown(markdown_path.to_owned() + "/" + &a_path);
+      show_markdown(markdown_path.to_owned() + "/" + &a_path, flag_html).unwrap();
       break;
     }
   }
@@ -61,7 +58,7 @@ pub fn cat_til(arg_path: String) {
 
   return None
 */
-pub fn cat_til_num(num: usize) {
+pub fn cat_til_num(num: usize, flag_html: bool) {
   let mut f = File::open(get_init_path())
     .expect("file not found");
   
@@ -72,7 +69,7 @@ pub fn cat_til_num(num: usize) {
   let init_path: Vec<&str> = contents.split("&").collect();
   
   // init file path loop
-  show_markdown(init_path[num].to_string());
+  show_markdown(init_path[num].to_string(), flag_html).unwrap();
 }
 
 /*
@@ -82,13 +79,18 @@ pub fn cat_til_num(num: usize) {
 
   return Result<(), String>
 */
-fn show_markdown(path: String) -> Result<(), String> {
+fn show_markdown(path: String, flag_html: bool) -> Result<(), String> {
   let mut f = File::open(path).expect("file not found");
   let mut buf = String::new();
   f.read_to_string(&mut buf)
     .expect("something went wrong reading the file");
 
-  markdown::parsing(buf);
+  if flag_html {
+    markdown::parsing_html(buf);
+  }
+  else {
+    markdown::parsing(buf);
+  }
 
   Ok(())
 }
