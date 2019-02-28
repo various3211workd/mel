@@ -32,6 +32,8 @@ pub fn cat_til(arg_path: String) {
   
   let init_path: Vec<&str> = contents.split("&").collect();
   
+  let markdown_path = init_path[0];
+  
   // init file path loop
   for path in init_path[0..init_path.len() - 1].into_iter() {
     if show_path.len() > 2 {
@@ -43,6 +45,9 @@ pub fn cat_til(arg_path: String) {
         }
         break;
       }
+    } else if show_path.len() >= 0 {
+      show_markdown(markdown_path.to_owned() + "/README.md");
+      break;
     }
   }
 }
