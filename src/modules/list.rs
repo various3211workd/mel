@@ -16,7 +16,7 @@ pub fn show() {
     Ok(_) => { },
     Err(e) => { panic!("{}", e); }
   }
-  println!("[ <3 ] Can Use Commands!!\n");
+  println!("[ <3 ] TIL List\n");
   
   let mut index = 0;
   let markdown_paths = contents.split("&").collect::<Vec<&str>>();
