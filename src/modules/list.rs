@@ -24,15 +24,13 @@ pub fn show() {
   let mut temp = "";
   
   for path in markdown_paths {
-    let a_path: String = path.replace(init_path, "");
+    let a_path = path.replace(init_path, "");
     let p: Vec<&str> = path.rsplit("/").collect();
     
-    //reload(a_path, p);
-    println!("[ {} ] {}", index, a_path);
-    
+    if p[0].ends_with(".md") {
+      println!("[ {} ] {}", index, a_path);
+    }
+
     index += 1;
   }
-}
-
-fn reload(a_path: String, p: Vec<&str>) {
 }
