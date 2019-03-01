@@ -21,14 +21,16 @@ pub fn show() {
   let mut index = 0;
   let markdown_paths = contents.split("&").collect::<Vec<&str>>();
   let init_path = markdown_paths[0];
-  //let mut temp = "";
+  let mut temp = "";
   
   for path in markdown_paths {
-    let a_path = path.replace(init_path, "");
-    let p: Vec<&str> = path.rsplit("/").collect();
+    let a_path: String = path.replace(init_path, "");
+    //let p = a_path.rsplit("/").collect::<Vec<&str>>();
     
+    let p = a_path.rsplit("/").collect::<Vec<&str>>();
+
     if p[0] == "README.md" {
-      if p.len() <= 5 {
+      if p.len() <= 2 {
         println!("[ {} ] {}", index, a_path);
       }
       else {
@@ -39,6 +41,14 @@ pub fn show() {
       println!("[ {} ] {}", index, a_path);
     }
 
+    // changed folder path ReEnter
+    /*
+    if temp != p[0] {
+      temp = p.get(0);
+      println!("");
+    }
+    */
+    
     index += 1;
   }
 }
