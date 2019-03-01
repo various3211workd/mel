@@ -26,10 +26,11 @@ Usage:
 
 Options:
   -h, --help     Show this screen
-  -v, --version  Show version
+  -v, --version  SHow version
   -n, --number   Show list number
   -o, --html     Put html 
 ";
+const VERSION: &'static str = "v1.0.1";
 
 #[derive(Deserialize)]
 struct Args {
@@ -40,6 +41,8 @@ struct Args {
   arg_num: usize,
   flag_html: bool,
   arg_path: String,
+  flag_help: bool,
+  flag_version: bool,
 }
 
 #[warn(unused_must_use)]
@@ -48,7 +51,13 @@ fn main() {
     .and_then(|d| d.deserialize())
     .unwrap_or_else(|e| e.exit());
 
-  if args.cmd_init {
+  if args.flag_help {
+    println!("{}", USAGE);
+  }
+  else if args.flag_version {
+    println!("{}", VERSION);
+  }
+  else if args.cmd_init {
     let mut con = Console::stdout().unwrap();
     match init::init() {
       Ok(()) => {
