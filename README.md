@@ -15,7 +15,7 @@ move release tab and donwload
 Execute in the directory you want to register to mel.
 
 ```
-PS>mel init
+PS>./mel init
 
 [ o ] Init Complete
 ```
@@ -26,7 +26,7 @@ Record the file under the init directory.
 If the name ends with "README.md", "README.md" is omitted, but it is displayed if it is directly under the init directory.
 
 ```
-PS>mel list
+PS>./mel list
 
 [ <3 ] TIL List
 
@@ -46,32 +46,32 @@ PS>mel list
 
 ### show tils  
 ```
-mel [list_line]
+PS>./mel [list_line]
 ```
 
 You can see the til file at the terminal.  
 It is written in html.
 
 ```
-PS>mel /Rust/args
-<h1>args</h1>
-<h2>cargo run時にパスを渡す</h2>
-<p>cargo run --args ***</p>
+PS>./mel /Rust/args
+# args
 
+## cargo run時にパスを渡す
+cargo run --args ***
 ```
 
 or  
 
 ```
-mel -n [list_number]
+.PS>/mel -n [list_number]
 ```
 
 ```
-PS> mel -n 5
-<h1>args</h1>
-<h2>cargo run時にパスを渡す</h2>
-<p>cargo run --args ***</p>
+PS>./mel -n 5
+# args
 
+## cargo run時にパスを渡す
+cargo run --args ***
 ```
 
 ### List Update
@@ -80,4 +80,13 @@ Update mel directory's init directory
 ```
 PS>mel update
 [ U ] Update Complete
+```
+
+### Put html
+Show Html code.
+```
+PS>./mel -no 5
+<h1>args</h1>
+<h2>cargo run時にパスを渡す</h2>
+<p>cargo run --args ***</p>
 ```
