@@ -21,7 +21,8 @@ Usage:
   mel list
   mel update
   mel -n [-o] <num>
-  mel -w [-n] <path> <comment>
+  mel -w <path> <comment>
+  mel -wn <num> <comment>
   mel [-o] <path>
   mel (--help | --version)
 
@@ -88,12 +89,17 @@ fn main() {
     con.reset().unwrap();
   }
   // -wn option
-  else if args.flag_write && args.flag_number {
-    edit_til::write_til_num(args.arg_num, args.arg_path, args.arg_comment);
-  }
-  // -w option
   else if args.flag_write {
-    edit_til::write_til(args.arg_path, args.arg_comment);
+    if args.flag_number {
+      edit_til::write_til_num(args.arg_num, args.arg_comment);
+    }
+    else {
+      edit_til::write_til(args.arg_path, args.arg_comment);
+    }
+    let mut con = Console::stdout().unwrap();
+    con.fg(Intense::Yes, Color::Green).unwrap();
+    println!("[ W ] Write Complete");
+    con.reset().unwrap();
   }
   // -n option
   else if args.flag_number {

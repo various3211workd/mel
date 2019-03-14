@@ -1,4 +1,4 @@
-use std::fs::File;
+use std::fs::*;
 use std::io::prelude::*;
 use std::io::BufWriter;
 
@@ -81,15 +81,15 @@ pub fn cat_til_num(num: usize, flag_html: bool) {
 
   return None
 */
-pub fn write_til(path: String, comment: String) {
+pub fn write_til(arg_path: String, comment: String) {
   // user cat file
 
   let mut a_path;
-  if !path.ends_with(".md") {
-    a_path = path + "/README.md";
+  if !arg_path.ends_with(".md") {
+    a_path = arg_path + "/README.md";
   }
   else {
-    a_path = path;
+    a_path = arg_path;
   }
   let show_path: Vec<&str> = a_path.rsplit("/").collect();
 
@@ -102,7 +102,6 @@ pub fn write_til(path: String, comment: String) {
   
   let init_path: Vec<&str> = contents.split("&").collect();
   
-  let markdown_path = init_path[0];
   
   // init file path loop
   for path in init_path[0..init_path.len() - 1].into_iter() {
@@ -113,10 +112,10 @@ pub fn write_til(path: String, comment: String) {
         break;
       }
     } else if show_path.len() == 2 {
-      write_markdown(markdown_path.to_owned() + &a_path, comment);
+      write_markdown(format!("{}{}", path.to_owned(), &a_path), comment);
       break;
     } else if show_path.len() == 1 {
-      write_markdown(markdown_path.to_owned() + "/" + &a_path, comment);
+      write_markdown(format!("{}{}{}", path.to_owned(), "/", &a_path), comment);
       break;
     }
   }
@@ -130,7 +129,7 @@ pub fn write_til(path: String, comment: String) {
 
   return None
 */
-pub fn write_til_num(num: usize, path: String, comment: String) {
+pub fn write_til_num(num: usize, comment: String) {
   let mut f = File::open(get_init_path())
     .expect("file not found");
   
@@ -175,6 +174,12 @@ fn show_markdown(path: String, flag_html: bool) -> Result<(), String> {
   return None
 */
 fn write_markdown(path: String, comment: String) {
-  let mut f = BufWriter::new(File::open(path).unwrap());
-  f.write(comment.as_bytes()).unwrap();
+  let mut f = BufWriter::new(
+    OpenOptions::new()
+      .write(true)
+      .append(true)
+      .open(path)
+      .expect("[Error] can't open file"));
+
+  f.write(format!("{}{}", "\n\n", comment).as_bytes()).unwrap();
 }
