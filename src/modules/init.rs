@@ -78,7 +78,7 @@ fn put_init_file(inittree: String) {
       .write(true)
       .truncate(true)
       .open(uname::get_init_path())
-      .expect("[Error] can't create initTree.json file"));
+      .expect("[Error] can't open file"));
 
   f.write(inittree.as_bytes()).unwrap();
 }
@@ -142,7 +142,7 @@ pub fn update() {
       .write(true)
       .truncate(true)
       .open(uname::get_init_path())
-      .expect("[Error] can't create initTree.json file"));
+      .expect("[Error] can't open file"));
 
   f.write(inittree.as_bytes()).unwrap();
 
