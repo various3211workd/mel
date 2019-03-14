@@ -3,3 +3,4 @@ pub mod list;
 pub mod catfile;
 pub mod uname;
 pub mod markdown;
+pub mod writefile;
