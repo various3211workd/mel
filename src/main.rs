@@ -22,25 +22,29 @@ Usage:
   mel update
   mel [-o] -n <num>
   mel [-o] <path>
+  mel [-w] <path> <comment>
   mel (--help | --version)
 
 Options:
   -h, --help     Show this screen
   -v, --version  SHow version
   -n, --number   Show list number
-  -o, --html     Put html 
+  -o, --html     Put html
+  -w, --write    Write TIL file
 ";
 const VERSION: &'static str = "v1.0.1";
 
 #[derive(Deserialize)]
 struct Args {
-  cmd_init: bool,
-  cmd_list: bool,
-  cmd_update: bool,
-  flag_number: bool,
+  cmd_init: bool,       // init option
+  cmd_list: bool,       // list option
+  cmd_update: bool,     // update option
+  flag_number: bool,    // -n option
   arg_num: usize,
-  flag_html: bool,
+  flag_html: bool,      // output html option
   arg_path: String,
+  flag_write: bool,     // -w option
+  arg_comment: String,
   flag_help: bool,
   flag_version: bool,
 }
@@ -85,6 +89,9 @@ fn main() {
   }
   else if args.flag_number {
     catfile::cat_til_num(args.arg_num, args.flag_html);
+  }
+  else if args.flag_write {
+    writefile::write_til(args.arg_path, args.arg_comment);
   }
   else {
     catfile::cat_til(args.arg_path, args.flag_html);
