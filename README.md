@@ -90,3 +90,10 @@ PS>./mel -no 5
 <h2>cargo run時にパスを渡す</h2>
 <p>cargo run --args ***</p>
 ```
+
+### Write TIL
+Simple editing of TIL is possible.
+```
+PS>./mel -wn 9 "pencil is my father"
+[ W ] Write Complete
+```
