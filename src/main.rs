@@ -20,9 +20,9 @@ Usage:
   mel init
   mel list
   mel update
-  mel [-o] -n <num>
+  mel -n [-o] <num>
+  mel -w [-n] <path> <comment>
   mel [-o] <path>
-  mel [-w] <path> <comment>
   mel (--help | --version)
 
 Options:
@@ -87,13 +87,20 @@ fn main() {
     println!("[ U ] Update Complete");
     con.reset().unwrap();
   }
-  else if args.flag_number {
-    catfile::cat_til_num(args.arg_num, args.flag_html);
+  // -wn option
+  else if args.flag_write && args.flag_number {
+    edit_til::write_til_num(args.arg_num, args.arg_path, args.arg_comment);
   }
+  // -w option
   else if args.flag_write {
-    writefile::write_til(args.arg_path, args.arg_comment);
+    edit_til::write_til(args.arg_path, args.arg_comment);
   }
+  // -n option
+  else if args.flag_number {
+    edit_til::cat_til_num(args.arg_num, args.flag_html);
+  }
+  // else
   else {
-    catfile::cat_til(args.arg_path, args.flag_html);
+    edit_til::cat_til(args.arg_path, args.flag_html);
   }
 }
