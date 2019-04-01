@@ -1,10 +1,12 @@
 extern crate walkdir;
+extern crate pbr;
 
 use std::fs::*;
 use std::io::*;
 use std::env::*;
 use std::path::PathBuf;
 use walkdir::WalkDir;
+//use pbr::ProgressBar;
 
 use super::uname;
 
@@ -99,11 +101,17 @@ pub fn update() {
     .expect("something went wrong reading the file");
   
   let init_path: Vec<&str> = contents.split("&").collect();
-
   let mut inittree = "".to_string();  
+
   // current dir
   inittree.push_str(&init_path[0]);
   inittree.push_str("&");
+  
+  // progressbar
+  /*
+  let mut pb = ProgressBar::new(1000);
+  pb.format("|██-|");
+  */
 
   // push full file path
   for entry in WalkDir::new(&init_path[0]).into_iter().filter_map(|e| e.ok()) {
@@ -129,6 +137,7 @@ pub fn update() {
         }
       }
     }
+    //pb.inc();
   }
 
   // create .mel folder
@@ -145,5 +154,6 @@ pub fn update() {
       .expect("[Error] can't open file"));
 
   f.write(inittree.as_bytes()).unwrap();
-
+  
+  //pb.finish();
 }

@@ -20,6 +20,7 @@ Usage:
   mel init
   mel list
   mel update
+  mel list -d <string>
   mel -n [-o] <num>
   mel -w <path> <comment>
   mel -wn <num> <comment>
@@ -28,10 +29,11 @@ Usage:
 
 Options:
   -h, --help     Show this screen
-  -v, --version  SHow version
+  -v, --version  Show version
   -n, --number   Show list number
   -o, --html     Put html
-  -w, --write    Write TIL file
+  -w, --write    Write til file
+  -d, --delete   list minus strings
 ";
 const VERSION: &'static str = "v1.0.1";
 
@@ -48,6 +50,8 @@ struct Args {
   arg_comment: String,
   flag_help: bool,
   flag_version: bool,
+  flag_delete: bool,    // -d option
+  arg_string: String,
 }
 
 #[warn(unused_must_use)]
@@ -78,14 +82,14 @@ fn main() {
     }
   }
   else if args.cmd_list {
-    list::show();
+    list::show(args.flag_delete, args.arg_string);
   }
   // init file update
   else if args.cmd_update {
     init::update(); 
     let mut con = Console::stdout().unwrap();
     con.fg(Intense::Yes, Color::Cyan).unwrap();
-    println!("[ U ] Update Complete");
+    println!("\n[ U ] Update Complete");
     con.reset().unwrap();
   }
   // -wn option
