@@ -7,7 +7,7 @@ use super::uname::get_init_path;
 
   return None
 */
-pub fn show() {
+pub fn show(delete_flag: bool, delete_string: String) {
 
   let mut f = File::open(get_init_path()).expect("file not found");
 
@@ -21,34 +21,26 @@ pub fn show() {
   let mut index = 0;
   let markdown_paths = contents.split("&").collect::<Vec<&str>>();
   let init_path = markdown_paths[0];
-  let mut temp = "";
   
   for path in markdown_paths {
     let a_path: String = path.replace(init_path, "");
-    //let p = a_path.rsplit("/").collect::<Vec<&str>>();
     
     let p = a_path.rsplit("/").collect::<Vec<&str>>();
 
-    if p[0] == "README.md" {
-      if p.len() <= 2 {
+    // true delete flag and include delete_string
+    if !(delete_flag && a_path.find(&delete_string) != None) {
+      if p[0] == "README.md" {
+        if p.len() <= 2 {
+          println!("[ {} ] {}", index, a_path);
+        }
+        else {
+          println!("[ {} ] {}" ,index, a_path.replace("/README.md", ""));
+        }
+      }
+      else if p[0].ends_with(".md") {
         println!("[ {} ] {}", index, a_path);
       }
-      else {
-        println!("[ {} ] {}" ,index, a_path.replace("/README.md", ""));
-      }
     }
-    else if p[0].ends_with(".md") {
-      println!("[ {} ] {}", index, a_path);
-    }
-
-    // changed folder path ReEnter
-    /*
-    if temp != p[0] {
-      temp = p.get(0);
-      println!("");
-    }
-    */
-    
     index += 1;
   }
 }

@@ -4,6 +4,7 @@ use std::io::BufWriter;
 
 use super::uname::get_init_path;
 use super::markdown;
+
 /*
   cat_til function
 
@@ -85,6 +86,7 @@ pub fn write_til(arg_path: String, comment: String) {
   // user cat file
 
   let mut a_path;
+
   if !arg_path.ends_with(".md") {
     a_path = arg_path + "/README.md";
   }

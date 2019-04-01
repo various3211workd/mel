@@ -44,6 +44,23 @@ PS>./mel list
 [ 12 ] /security/Thread_Execution_Hijacking
 ```
 
+add -d option is delete string.
+
+```
+PS>./mel list -d security
+
+[ <3 ] TIL List
+
+[ 1 ] /c/compile
+[ 2 ] /firebase
+[ 3 ] /powershell/import_VisualStudio_code.md
+[ 4 ] /README.md
+[ 5 ] /Rust/args
+[ 6 ] /Rust/json
+[ 7 ] /Rust/std_fs
+[ 8 ] /Rust/termcolor
+```
+
 ### show tils  
 ```
 PS>./mel [list_line]
