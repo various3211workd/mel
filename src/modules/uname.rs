@@ -19,10 +19,20 @@ fn get_username() -> String {
   user_name
 }
 
+/*
+  get_init_path function
+
+  return String
+*/
 pub fn get_init_path() -> String {
   "C:/Users/".to_owned() + &get_username() + "/.mel/initTree.json"
 }
 
+/*
+  get_folder_path function
+
+  return String
+*/
 pub fn get_folder_path() -> String {
   "C:/Users/".to_owned() + &get_username() + "/.mel"
 }
