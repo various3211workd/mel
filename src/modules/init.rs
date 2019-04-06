@@ -6,7 +6,6 @@ use std::io::*;
 use std::env::*;
 use std::path::PathBuf;
 use walkdir::WalkDir;
-//use pbr::ProgressBar;
 
 use super::uname;
 
@@ -107,21 +106,15 @@ pub fn update() {
   inittree.push_str(&init_path[0]);
   inittree.push_str("&");
   
-  // progressbar
-  /*
-  let mut pb = ProgressBar::new(1000);
-  pb.format("|██-|");
-  */
-
   // push full file path
   for entry in WalkDir::new(&init_path[0]).into_iter().filter_map(|e| e.ok()) {
     if entry.file_name().to_string_lossy().ends_with(".md") {
       let path = PathBuf::from(String::from(entry.path().display().to_string()));
       let cwd = canonicalize(&path).unwrap();
       match cwd.into_os_string().into_string() {
-        Ok(aa) => {
+        Ok(p_str) => {
           // create full path
-          let path_vec: Vec<&str> = aa.split("\\").collect();
+          let path_vec: Vec<&str> = p_str.split("\\").collect();
           let mut index = 0;
           for p in path_vec[3..path_vec.len()].into_iter() {
             inittree.push_str(&p);
@@ -155,5 +148,4 @@ pub fn update() {
 
   f.write(inittree.as_bytes()).unwrap();
   
-  //pb.finish();
 }

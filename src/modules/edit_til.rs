@@ -14,7 +14,6 @@ use super::markdown;
 */
 pub fn cat_til(arg_path: String, flag_html: bool) {
   // user cat file
-
   let mut a_path;
   if !arg_path.ends_with(".md") {
     a_path = arg_path + "/README.md";
@@ -32,9 +31,9 @@ pub fn cat_til(arg_path: String, flag_html: bool) {
     .expect("something went wrong reading the file");
   
   let init_path: Vec<&str> = contents.split("&").collect();
-  
+
   let markdown_path = init_path[0];
-  
+
   // init file path loop
   for path in init_path[0..init_path.len() - 1].into_iter() {
     if show_path.len() > 2 {
@@ -103,7 +102,6 @@ pub fn write_til(arg_path: String, comment: String) {
     .expect("something went wrong reading the file");
   
   let init_path: Vec<&str> = contents.split("&").collect();
-  
   
   // init file path loop
   for path in init_path[0..init_path.len() - 1].into_iter() {
