@@ -89,7 +89,7 @@ fn main() {
     init::update(); 
     let mut con = Console::stdout().unwrap();
     con.fg(Intense::Yes, Color::Cyan).unwrap();
-    println!("\n[ U ] Update Complete");
+    println!("[ U ] Update Complete");
     con.reset().unwrap();
   }
   // -wn option
