@@ -5,6 +5,10 @@ mel is the coined term of "memo" + "(TIL)Today I Learning"
 
 Can look back my daily notes.
 
+## Supported OS
+✔ Windows  
+✖ Mac  
+✖ Linux  
 
 ## Donwload
 move release tab and donwload
