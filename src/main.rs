@@ -18,9 +18,8 @@ Can look back my daily notes.
 
 Usage:
   mel init
-  mel list
   mel update
-  mel list -d <string>
+  mel list [-d <string>]
   mel -n [-o] <num>
   mel -w <path> <comment>
   mel -wn <num> <comment>
