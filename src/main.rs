@@ -1,14 +1,7 @@
 #[macro_use]
 extern crate serde_derive;
-extern crate wincolor;
 
 use docopt::Docopt;
-use wincolor::{
-  Console, 
-  Color, 
-  Intense
-};
-
 use mel::modules::*;
 
 // Write the Docopt usage string.
@@ -66,17 +59,12 @@ fn main() {
     println!("{}", VERSION);
   }
   else if args.cmd_init {
-    let mut con = Console::stdout().unwrap();
     match init::init() {
       Ok(()) => {
-        con.fg(Intense::Yes, Color::Cyan).unwrap();
-        println!("[ o ] Init Complete");
-        con.reset().unwrap();
+        wconsole::complete_str("[ o ] Init Complete".to_string());
       },
       Err(e) => {
-        con.fg(Intense::Yes, Color::Magenta).unwrap();
-        println!("{}", e.to_string());
-        con.reset().unwrap();
+        wconsole::err_str(e.to_string());
       }
     }
   }
@@ -85,11 +73,8 @@ fn main() {
   }
   // init file update
   else if args.cmd_update {
-    init::update(); 
-    let mut con = Console::stdout().unwrap();
-    con.fg(Intense::Yes, Color::Cyan).unwrap();
-    println!("[ U ] Update Complete");
-    con.reset().unwrap();
+    init::update();
+    wconsole::complete_str("[ U ] Update Complete".to_string());
   }
   // -wn option
   else if args.flag_write {
@@ -99,10 +84,7 @@ fn main() {
     else {
       edit_til::write_til(args.arg_path, args.arg_comment);
     }
-    let mut con = Console::stdout().unwrap();
-    con.fg(Intense::Yes, Color::Green).unwrap();
-    println!("[ W ] Write Complete");
-    con.reset().unwrap();
+    wconsole::complete_str("[ W ] Write Complete".to_string());
   }
   // -n option
   else if args.flag_number {
