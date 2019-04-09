@@ -1,6 +1,6 @@
 [package]
 name = "mel"
-version = "0.1.0"
+version = "1.0.1"
 authors = ["various3211workd <kd1229568@st.kobedenshi.ac.jp>"]
 edition = "2018"
 
