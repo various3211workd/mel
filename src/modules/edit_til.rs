@@ -1,6 +1,5 @@
-use std::fs::*;
-use std::io::prelude::*;
-use std::io::BufWriter;
+use std::io::{BufReader, Read, BufWriter, Write};
+use std::{fs, str};
 
 use super::uname::get_init_path;
 use super::markdown;
@@ -23,7 +22,7 @@ pub fn cat_til(arg_path: String, flag_html: bool) {
   }
   let show_path: Vec<&str> = a_path.rsplit("/").collect();
 
-  let mut f = File::open(get_init_path())
+  let mut f = fs::File::open(get_init_path())
     .expect("file not found");
   
   let mut contents = String::new();
@@ -33,7 +32,7 @@ pub fn cat_til(arg_path: String, flag_html: bool) {
   let init_path: Vec<&str> = contents.split("&").collect();
 
   let markdown_path = init_path[0];
-
+  
   // init file path loop
   for path in init_path[0..init_path.len() - 1].into_iter() {
     if show_path.len() > 2 {
@@ -60,7 +59,7 @@ pub fn cat_til(arg_path: String, flag_html: bool) {
   return None
 */
 pub fn cat_til_num(num: usize, flag_html: bool) {
-  let mut f = File::open(get_init_path())
+  let mut f = fs::File::open(get_init_path())
     .expect("file not found");
   
   let mut contents = String::new();
@@ -94,7 +93,7 @@ pub fn write_til(arg_path: String, comment: String) {
   }
   let show_path: Vec<&str> = a_path.rsplit("/").collect();
 
-  let mut f = File::open(get_init_path())
+  let mut f = fs::File::open(get_init_path())
     .expect("file not found");
   
   let mut contents = String::new();
@@ -130,7 +129,7 @@ pub fn write_til(arg_path: String, comment: String) {
   return None
 */
 pub fn write_til_num(num: usize, comment: String) {
-  let mut f = File::open(get_init_path())
+  let mut f = fs::File::open(get_init_path())
     .expect("file not found");
   
   let mut contents = String::new();
@@ -150,16 +149,15 @@ pub fn write_til_num(num: usize, comment: String) {
   return Result<(), String>
 */
 fn show_markdown(path: String, flag_html: bool) -> Result<(), String> {
-  let mut f = File::open(path).expect("file not found");
-  let mut buf = String::new();
-  f.read_to_string(&mut buf)
-    .expect("something went wrong reading the file");
+  let mut f = BufReader::new(fs::File::open(path).unwrap()); // buffering read
+  let mut buf = vec![];
+  f.read_to_end(&mut buf).unwrap();
 
   if flag_html {
-    markdown::parsing_html(buf);
+    markdown::parsing_html(str::from_utf8(&buf).unwrap().to_string());
   }
   else {
-    markdown::parsing(buf);
+    markdown::parsing(str::from_utf8(&buf).unwrap().to_string());
   }
 
   Ok(())
@@ -175,7 +173,7 @@ fn show_markdown(path: String, flag_html: bool) -> Result<(), String> {
 */
 fn write_markdown(path: String, comment: String) {
   let mut f = BufWriter::new(
-    OpenOptions::new()
+    fs::OpenOptions::new()
       .write(true)
       .append(true)
       .open(path)
