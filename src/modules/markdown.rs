@@ -34,6 +34,7 @@ pub fn parsing_html(buf: String) {
 pub fn parsing(buf: String) {
   let mut midashi: bool = false;        // midashi flag. start '#' on true
   let mut code_syntax: bool = false;    // code syntax flag. start '`' on true
+  let mut comment_flag: bool = false;   // comment flag. start '>' on true
   let mut count: i32 = 0;               // counter
 
   // windows console setup
@@ -52,8 +53,8 @@ pub fn parsing(buf: String) {
       match count {
         1 => {con.fg(Intense::Yes, Color::Yellow).unwrap();}
         2 => {con.fg(Intense::Yes, Color::Green).unwrap();}
-        3 => {con.fg(Intense::Yes, Color::Red).unwrap();}
-        _ => {con.fg(Intense::Yes, Color::Blue).unwrap();}
+        3 => {con.fg(Intense::Yes, Color::Blue).unwrap();}
+        _ => {con.fg(Intense::Yes, Color::Cyan).unwrap();}
       }
       print!("{}", word);
 
@@ -62,6 +63,26 @@ pub fn parsing(buf: String) {
         midashi = false;
         count = 0;
         con.reset().unwrap();
+      }
+    }
+    // comment '>'
+    else if word == '>' {
+      con.fg(Intense::Yes, Color::Black).unwrap();
+      comment_flag = true;
+    }
+    /*
+    else if comment_flag && word == '\n' {
+      con.reset().unwrap();
+      count = 0;
+      comment_flag = false;
+    }
+    */
+    else if comment_flag && word == ' ' {
+      count += 1;
+      if count == 2 {
+        con.reset().unwrap();
+        count = 0;
+        comment_flag = false;
       }
     }
     // コードのシンタックスにつて書いてある場合
@@ -74,20 +95,13 @@ pub fn parsing(buf: String) {
       }
       if count == 3 {
         code_syntax = true;
-        con.fg(Intense::Yes, Color::Red).unwrap();
+        con.fg(Intense::Yes, Color::Magenta).unwrap();
       }
       else if count == 0 {
         println!("");
         code_syntax = false;
         con.reset().unwrap();
       }
-    }
-    else if code_syntax {
-      print!("{}", word);
-    }
-    else if word == '>' {
-      con.fg(Intense::Yes, Color::Black).unwrap();
-      print!("{}", word);
     }
     else {
       print!("{}", word);
