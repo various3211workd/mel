@@ -50,7 +50,7 @@ pub fn parsing(buf: String) {
     // 見出しが終わったとき。出力する
     else if midashi {
       match count {
-        1 => {con.fg(Intense::Yes, Color::Cyan).unwrap();}
+        1 => {con.fg(Intense::Yes, Color::Yellow).unwrap();}
         2 => {con.fg(Intense::Yes, Color::Green).unwrap();}
         3 => {con.fg(Intense::Yes, Color::Red).unwrap();}
         _ => {con.fg(Intense::Yes, Color::Blue).unwrap();}
