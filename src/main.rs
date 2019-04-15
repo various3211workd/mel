@@ -13,10 +13,10 @@ Usage:
   mel init
   mel update
   mel list [-d <string>]
+  mel [-o] <path>
   mel -n [-o] <num>
   mel -w <path> <comment>
   mel -wn <num> <comment>
-  mel [-o] <path>
   mel (--help | --version)
 
 Options:
