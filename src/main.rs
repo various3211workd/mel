@@ -27,7 +27,7 @@ Options:
   -w, --write    Write til file
   -d, --delete   list minus strings
 ";
-const VERSION: &'static str = "v1.0.1";
+const VERSION: &'static str = "v1.0.2";
 
 #[derive(Deserialize)]
 struct Args {
