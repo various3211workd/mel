@@ -98,6 +98,24 @@ pub fn parsing(buf: String) {
         con.reset().unwrap();
       }
     }
+    // '*' or '_' or '-' 横線
+    else if word == '*' || word == '_' || word == '-' {
+
+    }
+    // '-' リスト
+    else if word == '-' {
+
+    }
+    // '*' or '_' 強調表示
+    else if word == '*' {
+
+    }
+    // 'http*' link
+    /*
+    else {
+
+    }
+    */
     else {
       print!("{}", word);
     }
