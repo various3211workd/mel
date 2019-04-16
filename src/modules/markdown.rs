@@ -36,7 +36,7 @@ pub fn parsing(buf: String) {
   let mut code_syntax: bool = false;    // code syntax flag. start '`' on true
   let mut comment_flag: bool = false;   // comment flag. start '>' on true
   let mut count: i32 = 0;               // counter
-
+ 
   // windows console setup
   let mut con = Console::stdout().unwrap();
     
@@ -48,7 +48,7 @@ pub fn parsing(buf: String) {
       midashi = true;
       count += 1;
     }
-    // 見出しが終わったとき。出力する
+    // 見出し文字 '#' が終わったとき。出力する
     else if midashi {
       match count {
         1 => {con.fg(Intense::Yes, Color::Yellow).unwrap();}
@@ -66,28 +66,23 @@ pub fn parsing(buf: String) {
       }
     }
     // comment '>'
-    else if word == '>' {
+    else if word == '>' && !code_syntax {
       con.fg(Intense::Yes, Color::Black).unwrap();
       comment_flag = true;
     }
-    /*
-    else if comment_flag && word == '\n' {
-      con.reset().unwrap();
-      count = 0;
-      comment_flag = false;
-    }
-    */
-    else if comment_flag && word == ' ' {
-      count += 1;
-      if count == 2 {
+    // comment文字 '>' が終わったとき。出力する
+    else if comment_flag {
+      print!("{}", word);
+
+      // コメント時に改行があった場合
+      if word == '\n' {
         con.reset().unwrap();
-        count = 0;
         comment_flag = false;
       }
     }
-    // コードのシンタックスにつて書いてある場合
+    // code highlight
     else if word == '`' {
-      if count < 3 && !code_syntax { 
+      if count < 3 && !code_syntax && word != '\n' { 
         count += 1;
       }
       else {
