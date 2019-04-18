@@ -110,12 +110,6 @@ pub fn parsing(buf: String) {
     else if word == '*' {
 
     }
-    // 'http*' link
-    /*
-    else {
-
-    }
-    */
     else {
       print!("{}", word);
     }
