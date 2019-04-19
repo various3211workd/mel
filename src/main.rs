@@ -13,8 +13,7 @@ Usage:
   mel init
   mel update
   mel list [-d <string>]
-  mel [-o] <path>
-  mel -n [-o] <num>
+  mel -n <num> [--html] 
   mel -w <path> <comment>
   mel -wn <num> <comment>
   mel (--help | --version)
@@ -23,9 +22,9 @@ Options:
   -h, --help     Show this screen
   -v, --version  Show version
   -n, --number   Show list number
-  -o, --html     Put html
   -w, --write    Write til file
   -d, --delete   list minus strings
+  --html     Put html
 ";
 const VERSION: &'static str = "v1.0.2";
 
