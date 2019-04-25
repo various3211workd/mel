@@ -24,6 +24,7 @@ Options:
   -n, --number   Show list number
   -w, --write    Write til file
   -d, --delete   list minus strings
+  
   --html     Put html
 ";
 const VERSION: &'static str = "v1.0.2";
