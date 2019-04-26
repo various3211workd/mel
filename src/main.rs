@@ -13,8 +13,7 @@ Usage:
   mel init
   mel update
   mel list [-d <string>]
-  mel -n <num> [--html] 
-  mel -w <path> <comment>
+  mel -n <num> [--html]
   mel -wn <num> <comment>
   mel (--help | --version)
 
