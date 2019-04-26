@@ -66,26 +66,13 @@ PS>./mel list -d security
 ```
 
 ### show tils  
-```
-PS>./mel [list_line]
-```
-
-You can see the til file at the terminal.  
-It is written in html.
-
-```
-PS>./mel /Rust/args
-# args
-
-## cargo run時にパスを渡す
-cargo run --args ***
-```
-
-or  
 
 ```
 .PS>/mel -n [list_number]
 ```
+
+You can see the til file at the terminal.  
+It is written in html.
 
 ```
 PS>./mel -n 5
