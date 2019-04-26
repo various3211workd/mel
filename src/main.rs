@@ -13,8 +13,7 @@ Usage:
   mel init
   mel update
   mel list [-d <string>]
-  mel -n <num> [--html] 
-  mel -w <path> <comment>
+  mel -n <num> [--html]
   mel -wn <num> <comment>
   mel (--help | --version)
 
@@ -37,7 +36,6 @@ struct Args {
   flag_number: bool,    // -n option
   arg_num: usize,
   flag_html: bool,      // output html option
-  arg_path: String,
   flag_write: bool,     // -w option
   arg_comment: String,
   flag_help: bool,
@@ -78,12 +76,7 @@ fn main() {
   }
   // -wn option
   else if args.flag_write {
-    if args.flag_number {
-      edit_til::write_til_num(args.arg_num, args.arg_comment);
-    }
-    else {
-      edit_til::write_til(args.arg_path, args.arg_comment);
-    }
+    edit_til::write_til_num(args.arg_num, args.arg_comment);
     wconsole::complete_str("[ W ] Write Complete".to_string());
   }
   // -n option
@@ -92,6 +85,6 @@ fn main() {
   }
   // else
   else {
-    edit_til::cat_til(args.arg_path, args.flag_html);
+    println!("{}", USAGE);
   }
 }
