@@ -32,11 +32,11 @@ pub fn parsing_html(buf: String) {
   @param String
 */
 pub fn parsing(buf: String) {
-  let mut midashi: bool = false;        // midashi flag. start '#' on true
-  let mut code_syntax: bool = false;    // code syntax flag. start '`' on true
-  let mut comment_flag: bool = false;   // comment flag. start '>' on true
-  let mut flag: bool = false;
-  let mut count: i32 = 0;               // counter
+  let mut midashi: bool = false;          // midashi flag. start '#' on true
+  let mut code_syntax: bool = false;      // code syntax flag. start '`' on true
+  let mut comment_flag: bool = false;     // comment flag. start '>' on true
+  let mut syntax_lang_flag: bool = false; // syatx highlight lang flag
+  let mut count: i32 = 0;                 // counter
  
   // windows console setup
   let mut con = Console::stdout().unwrap();
@@ -91,7 +91,7 @@ pub fn parsing(buf: String) {
       }
       if count == 3 {
         code_syntax = true;
-        flag = true;
+        syntax_lang_flag = true;
         con.fg(Intense::Yes, Color::Magenta).unwrap();
       }
       else if count == 0 {
@@ -100,9 +100,9 @@ pub fn parsing(buf: String) {
         con.reset().unwrap();
       }
     }
-    else if word == '\n' && flag {
+    else if word == '\n' && syntax_lang_flag {
       println!("");
-      flag = false;
+      syntax_lang_flag = false;
     }
     // '*' or '_' or '-' 横線
     else if word == '*' || word == '_' || word == '-' {
