@@ -35,6 +35,7 @@ pub fn parsing(buf: String) {
   let mut midashi: bool = false;        // midashi flag. start '#' on true
   let mut code_syntax: bool = false;    // code syntax flag. start '`' on true
   let mut comment_flag: bool = false;   // comment flag. start '>' on true
+  let mut flag: bool = false;
   let mut count: i32 = 0;               // counter
  
   // windows console setup
@@ -90,6 +91,7 @@ pub fn parsing(buf: String) {
       }
       if count == 3 {
         code_syntax = true;
+        flag = true;
         con.fg(Intense::Yes, Color::Magenta).unwrap();
       }
       else if count == 0 {
@@ -97,6 +99,10 @@ pub fn parsing(buf: String) {
         code_syntax = false;
         con.reset().unwrap();
       }
+    }
+    else if word == '\n' && flag {
+      println!("");
+      flag = false;
     }
     // '*' or '_' or '-' 横線
     else if word == '*' || word == '_' || word == '-' {
@@ -110,7 +116,7 @@ pub fn parsing(buf: String) {
     else if word == '*' {
 
     }
-    else {
+    else if !flag {
       print!("{}", word);
     }
   }
