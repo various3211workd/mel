@@ -116,7 +116,7 @@ pub fn parsing(buf: String) {
     else if word == '*' {
 
     }
-    else if !flag {
+    else if !syntax_lang_flag {
       print!("{}", word);
     }
   }
