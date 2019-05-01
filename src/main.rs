@@ -12,9 +12,11 @@ Can look back my daily notes.
 Usage:
   mel init
   mel update
-  mel list [-d <string>]
+  mel list
   mel -n <num> [--html]
-  mel -wn <num> <comment>
+  mel -g <url>
+  mel -d <string>
+  mel -wn <num> <string>
   mel (--help | --version)
 
 Options:
@@ -22,7 +24,8 @@ Options:
   -v, --version  Show version
   -n, --number   Show list number
   -w, --write    Write til file
-  -d, --delete   list minus strings
+  -g, --get      Get Url file
+  -d, --delete   list delete strings
   
   --html     Put html
 ";
@@ -34,14 +37,15 @@ struct Args {
   cmd_list: bool,       // list option
   cmd_update: bool,     // update option
   flag_number: bool,    // -n option
-  arg_num: usize,
   flag_html: bool,      // output html option
   flag_write: bool,     // -w option
-  arg_comment: String,
   flag_help: bool,
   flag_version: bool,
   flag_delete: bool,    // -d option
+  flag_get: bool,       // -g option
+  arg_num: usize,
   arg_string: String,
+  arg_url: String,
 }
 
 #[warn(unused_must_use)]
@@ -68,7 +72,11 @@ fn main() {
   }
   // list
   else if args.cmd_list {
-    list::show(args.flag_delete, args.arg_string);
+    list::show();
+  }
+  // -d option
+  else if args.flag_delete {
+    list::delete(args.arg_string);
   }
   // init file update
   else if args.cmd_update {
@@ -77,11 +85,15 @@ fn main() {
   }
   // -wn option
   else if args.flag_write {
-    edit_til::write_til_num(args.arg_num, args.arg_comment);
+    edit_til::write_til_num(args.arg_num, args.arg_string);
     wconsole::complete_str("[ W ] Write Complete".to_string());
   }
   // -n option
   else if args.flag_number {
     edit_til::cat_til_num(args.arg_num, args.flag_html);
+  }
+  // -g option
+  else if args.flag_get {
+    get_url::get_url(args.arg_url);
   }
 }
