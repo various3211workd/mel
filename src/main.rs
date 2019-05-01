@@ -12,10 +12,11 @@ Can look back my daily notes.
 Usage:
   mel init
   mel update
-  mel list [-d <string>]
+  mel list
   mel -n <num> [--html]
-  mel -wn <num> <string>
   mel -g <url>
+  mel -d <string>
+  mel -wn <num> <string>
   mel (--help | --version)
 
 Options:
@@ -71,7 +72,11 @@ fn main() {
   }
   // list
   else if args.cmd_list {
-    list::show(args.flag_delete, args.arg_string);
+    list::show();
+  }
+  // -d option
+  else if args.flag_delete {
+    list::delete(args.arg_string);
   }
   // init file update
   else if args.cmd_update {
