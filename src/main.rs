@@ -84,8 +84,4 @@ fn main() {
   else if args.flag_number {
     edit_til::cat_til_num(args.arg_num, args.flag_html);
   }
-  // else
-  else {
-    println!("{}", USAGE);
-  }
 }
