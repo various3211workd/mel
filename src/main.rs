@@ -66,6 +66,7 @@ fn main() {
       }
     }
   }
+  // list
   else if args.cmd_list {
     list::show(args.flag_delete, args.arg_string);
   }
