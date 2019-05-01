@@ -24,7 +24,7 @@ pub fn init() -> Result<()> {
 
   return Value
 */
-fn create_init() -> String {
+pub fn create_init() -> String {
   let mut inittree = "".to_string();
   
   // current dir
@@ -66,7 +66,7 @@ fn create_init() -> String {
 
   @param inittree Value
 */
-fn put_init_file(inittree: String) {
+pub fn put_init_file(inittree: String) {
 
   // create .mel folder
   create_dir_all(uname::get_folder_path()).unwrap_or_else(|why| {
