@@ -61,8 +61,12 @@ pub fn delete(delete_string: String) {
     Ok(_) => { },
     Err(e) => { panic!("{}", e); }
   }
+
   let markdown_paths = contents.split("&").collect::<Vec<&str>>();
   let init_path = markdown_paths[0];
+
+  inittree.push_str(&init_path);
+  inittree.push_str("&");
   
   for path in markdown_paths {
     let a_path: String = path.replace(init_path, "");
