@@ -37,9 +37,9 @@ pub fn create_init() -> String {
       let path = PathBuf::from(String::from(entry.path().display().to_string()));
       let cwd = canonicalize(&path).unwrap();
       match cwd.into_os_string().into_string() {
-        Ok(aa) => {
+        Ok(temp) => {
           // create full path
-          let path_vec: Vec<&str> = aa.split("\\").collect();
+          let path_vec: Vec<&str> = temp.split("\\").collect();
           let mut index = 0;
           for p in path_vec[3..path_vec.len()].into_iter() {
             inittree.push_str(&p);
