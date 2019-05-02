@@ -130,7 +130,6 @@ pub fn update() {
         }
       }
     }
-    //pb.inc();
   }
 
   // create .mel folder
