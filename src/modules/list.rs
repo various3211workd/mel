@@ -76,6 +76,9 @@ pub fn delete(delete_string: String) {
       inittree.push_str(&a_path);
       inittree.push_str("&");
     }
+    else {
+      println!("delete {}", a_path);
+    }
   }
   
   put_init_file(inittree);
