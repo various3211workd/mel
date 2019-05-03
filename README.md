@@ -52,7 +52,7 @@ PS>./mel list
 add -d option is delete string.
 
 ```
-PS>./mel list -d security
+PS>./mel -d security
 
 [ <3 ] TIL List
 
@@ -64,6 +64,8 @@ PS>./mel list -d security
 [ 6 ] /Rust/json
 [ 7 ] /Rust/std_fs
 [ 8 ] /Rust/termcolor
+
+[ D ] delete Complete
 ```
 
 ### show tils  
