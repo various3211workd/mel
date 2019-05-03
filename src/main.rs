@@ -77,7 +77,7 @@ fn main() {
   // -d option
   else if args.flag_delete {
     list::delete(args.arg_string);
-    wconsole::complete_str("[ D ] delete Complete".to_string());
+    wconsole::complete_str("\n[ D ] delete Complete".to_string());
   }
   // init file update
   else if args.cmd_update {
