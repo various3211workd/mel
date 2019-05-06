@@ -12,7 +12,7 @@ use super::uname::get_init_path;
 pub fn get_url(url :String) {
   let init_path: String = get_init_path();
 
-  let mut resp = reqwest::get("https://github.com/various3211workd/").unwrap();
+  let mut resp = reqwest::get(url).unwrap();
 
   let mut s = String::new();
   resp.read_to_string(&mut s);
