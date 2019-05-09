@@ -14,7 +14,7 @@ Usage:
   mel update
   mel list
   mel -n <num> [--html]
-  mel -g <url>
+  mel -g <url> <filepath>
   mel -d <string>
   mel -wn <num> <string>
   mel (--help | --version)
@@ -46,6 +46,7 @@ struct Args {
   arg_num: usize,
   arg_string: String,
   arg_url: String,
+  arg_filepath: String,
 }
 
 #[warn(unused_must_use)]
@@ -95,6 +96,6 @@ fn main() {
   }
   // -g option
   else if args.flag_get {
-    get_url::get_url(args.arg_url);
+    get_url::get_url(args.arg_url, args.arg_filepath);
   }
 }
