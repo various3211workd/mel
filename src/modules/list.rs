@@ -1,5 +1,11 @@
+extern crate walkdir;
+extern crate pbr;
+
 use std::fs::File;
 use std::io::prelude::*;
+use std::path::PathBuf;
+use walkdir::WalkDir;
+use std::fs::*;
 
 use super::uname::get_init_path;
 use super::init::put_init_file;
@@ -57,27 +63,50 @@ pub fn delete(delete_string: String) {
   let mut f = File::open(get_init_path()).expect("file not found");
 
   let mut contents = String::new();
-  match f.read_to_string(&mut contents) {
-    Ok(_) => { },
-    Err(e) => { panic!("{}", e); }
-  }
+  f.read_to_string(&mut contents).unwrap();
 
-  let markdown_paths = contents.split("&").collect::<Vec<&str>>();
-  let init_path = markdown_paths[0];
+  let init_path: Vec<&str> = contents.split("&").collect();
+  let mut inittree = "".to_string();  
 
-  inittree.push_str(&init_path);
+  // current dir
+  inittree.push_str(&init_path[0]);
   inittree.push_str("&");
   
-  for path in markdown_paths {
-    let a_path: String = path.replace(init_path, "");
-    
+  // push full file path
+  for entry in WalkDir::new(&init_path[0]).into_iter().filter_map(|e| e.ok()) {
+    let entry_path = entry
+      .path()
+      .to_string_lossy()
+      .into_owned()
+      .replace("\\", "/");
+
     // true delete flag and include delete_string
-    if !(a_path.find(&delete_string) != None) {
-      inittree.push_str(&a_path);
-      inittree.push_str("&");
+    if (entry_path.find(&delete_string) != None) {
+      println!("delete {}", entry_path);
     }
     else {
-      println!("delete {}", a_path);
+      if entry_path.ends_with(".md") {
+        let path = PathBuf::from(String::from(entry.path().display().to_string()));
+        let cwd = canonicalize(&path).unwrap();
+        match cwd.into_os_string().into_string() {
+          Ok(p_str) => {
+            // create full path
+            let path_vec: Vec<&str> = p_str.split("\\").collect();
+            let mut index = 0;
+            for p in path_vec[3..path_vec.len()].into_iter() {
+              inittree.push_str(&p);
+              if index != path_vec.len() - 4 {
+                inittree.push_str("/");
+              }
+              index += 1;
+            }
+            inittree.push_str("&");
+          }
+          Err(e) => {
+            panic!("{:?}", e);
+          }
+        }
+      }
     }
   }
   
