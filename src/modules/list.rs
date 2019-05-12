@@ -59,7 +59,6 @@ pub fn show() {
   return None
 */
 pub fn delete(delete_string: String) {
-  let mut inittree = "".to_string();
   let mut f = File::open(get_init_path()).expect("file not found");
 
   let mut contents = String::new();
