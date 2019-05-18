@@ -13,6 +13,7 @@ Usage:
   mel init
   mel update
   mel list
+  mel <filepath> [--html]
   mel -n <num> [--html]
   mel -g <url> <filepath>
   mel -d <string>
@@ -97,5 +98,8 @@ fn main() {
   // -g option
   else if args.flag_get {
     get_url::get_url(args.arg_url, args.arg_filepath);
+  }
+  else {
+    edit_til::cat_til(args.arg_filepath, args.flag_html);
   }
 }

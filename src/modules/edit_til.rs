@@ -5,6 +5,57 @@ use super::uname::get_init_path;
 use super::markdown;
 
 /*
+  cat_til function
+  @param arg_path :String
+  return None
+*/
+pub fn cat_til(arg_path: String, flag_html: bool) {
+
+  // user cat file
+  let show_path: Vec<&str> = arg_path.rsplit("/").collect();
+
+  let mut a_path;
+  if !arg_path.ends_with("README.md") {
+    a_path = arg_path + "/README.md";
+  }
+  else {
+    a_path = arg_path;
+  }
+
+  let show_path: Vec<&str> = a_path.rsplit("/").collect();
+
+  let mut f = fs::File::open(get_init_path())
+    .expect("file not found");
+  
+  let mut contents = String::new();
+  f.read_to_string(&mut contents)
+    .expect("something went wrong reading the file");
+  
+  let init_path: Vec<&str> = contents.split("&").collect();
+  
+  // init file path loop
+  for path in init_path[0..init_path.len() - 1].into_iter() {
+    if show_path.len() > 2 {
+      let dest_path: Vec<&str> = path.rsplit("/").collect();
+      if dest_path[1] == show_path[1] && dest_path[0] == show_path[0] {
+        match show_markdown(path.to_string(), flag_html) {
+          Ok(()) => {},
+          Err(e) => { panic!("{}", e) },
+        }
+        break;
+      }
+    }
+    else {
+      match show_markdown(path.to_string(), flag_html) {
+        Ok(()) => {},
+        Err(e) => { panic!("{}", e) },
+      }
+      break;
+    }
+  }
+}
+
+/*
   cat_til_num function
 
   @param num :usize
