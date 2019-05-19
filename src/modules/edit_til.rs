@@ -1,5 +1,8 @@
+extern crate walkdir;
+
 use std::io::{BufReader, Read, BufWriter, Write};
 use std::{fs, str};
+use std::env::current_dir;
 
 use super::uname::get_init_path;
 use super::markdown;
@@ -11,47 +14,29 @@ use super::markdown;
 */
 pub fn cat_til(arg_path: String, flag_html: bool) {
 
-  // user cat file
-  let show_path: Vec<&str> = arg_path.rsplit("/").collect();
+  let mut path = current_dir()
+    .unwrap()
+    .display()
+    .to_string()
+    .replace("\\","/");
+  
+  println!("{}", arg_path);
 
-  let mut a_path;
-  if !arg_path.ends_with("README.md") {
-    a_path = arg_path + "/README.md";
+  if !path.starts_with("/") {
+    path.push_str("/");
+  }
+  path.push_str(&arg_path);
+  
+  let mut fs = BufReader::new(fs::File::open(path).unwrap()); // buffering read
+  let mut buf = vec![];
+  
+  fs.read_to_end(&mut buf).unwrap();
+
+  if flag_html {
+    markdown::parsing_html(str::from_utf8(&buf).unwrap().to_string());
   }
   else {
-    a_path = arg_path;
-  }
-
-  let show_path: Vec<&str> = a_path.rsplit("/").collect();
-
-  let mut f = fs::File::open(get_init_path())
-    .expect("file not found");
-  
-  let mut contents = String::new();
-  f.read_to_string(&mut contents)
-    .expect("something went wrong reading the file");
-  
-  let init_path: Vec<&str> = contents.split("&").collect();
-  
-  // init file path loop
-  for path in init_path[0..init_path.len() - 1].into_iter() {
-    if show_path.len() > 2 {
-      let dest_path: Vec<&str> = path.rsplit("/").collect();
-      if dest_path[1] == show_path[1] && dest_path[0] == show_path[0] {
-        match show_markdown(path.to_string(), flag_html) {
-          Ok(()) => {},
-          Err(e) => { panic!("{}", e) },
-        }
-        break;
-      }
-    }
-    else {
-      match show_markdown(path.to_string(), flag_html) {
-        Ok(()) => {},
-        Err(e) => { panic!("{}", e) },
-      }
-      break;
-    }
+    markdown::parsing(str::from_utf8(&buf).unwrap().to_string());
   }
 }
 
