@@ -70,42 +70,14 @@ pub fn delete(delete_string: String) {
   // current dir
   inittree.push_str(&init_path[0]);
   inittree.push_str("&");
-  
-  // push full file path
-  for entry in WalkDir::new(&init_path[0]).into_iter().filter_map(|e| e.ok()) {
-    let entry_path = entry
-      .path()
-      .to_string_lossy()
-      .into_owned()
-      .replace("\\", "/");
 
-    // true delete flag and include delete_string
-    if (entry_path.find(&delete_string) != None) {
-      println!("delete {}", entry_path);
+  for tils in &init_path[1..] {
+    if (tils.find(&delete_string) != None) {
+      println!("delete {}", tils);
     }
     else {
-      if entry_path.ends_with(".md") {
-        let path = PathBuf::from(String::from(entry.path().display().to_string()));
-        let cwd = canonicalize(&path).unwrap();
-        match cwd.into_os_string().into_string() {
-          Ok(p_str) => {
-            // create full path
-            let path_vec: Vec<&str> = p_str.split("\\").collect();
-            let mut index = 0;
-            for p in path_vec[3..path_vec.len()].into_iter() {
-              inittree.push_str(&p);
-              if index != path_vec.len() - 4 {
-                inittree.push_str("/");
-              }
-              index += 1;
-            }
-            inittree.push_str("&");
-          }
-          Err(e) => {
-            panic!("{:?}", e);
-          }
-        }
-      }
+      inittree.push_str(tils);
+      inittree.push_str("&"); 
     }
   }
   
