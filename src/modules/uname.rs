@@ -13,7 +13,7 @@ fn get_username() -> String {
         Err(e) => { panic!("{:?}", e); }
       }
     },
-    None => { panic!("cat't get user name..."); }
+    None => { panic!("can't get user name..."); }
   };
 
   user_name
