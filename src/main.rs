@@ -63,27 +63,21 @@ fn main() {
     println!("{}", VERSION);
   }
   else if args.cmd_init {
-    match init::init() {
-      Ok(()) => {
-        wconsole::complete_str("[ o ] Init Complete".to_string());
-      },
-      Err(e) => {
-        wconsole::err_str(e.to_string());
-      }
-    }
+    options::init();
+    wconsole::complete_str("[ o ] Init Complete".to_string());
   }
   // list
   else if args.cmd_list {
-    list::show();
+    options::show();
   }
   // -d option
   else if args.flag_delete {
-    list::delete(args.arg_string);
+    options::delete(args.arg_string);
     wconsole::complete_str("\n[ D ] delete Complete".to_string());
   }
   // init file update
   else if args.cmd_update {
-    init::update();
+    options::update();
     wconsole::complete_str("[ U ] Update Complete".to_string());
   }
   // -wn option
