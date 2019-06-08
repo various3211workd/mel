@@ -96,7 +96,7 @@ PS>mel update
 ### Put html
 Show Html code.
 ```
-PS>./mel -no 5
+PS>./mel -n 5 --html
 <h1>args</h1>
 <h2>cargo run時にパスを渡す</h2>
 <p>cargo run --args ***</p>
