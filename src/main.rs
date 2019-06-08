@@ -91,7 +91,14 @@ fn main() {
   }
   // -g option
   else if args.flag_get {
-    get_url::get_url(args.arg_url, args.arg_filepath);
+    match get_url::get_url(args.arg_url, args.arg_filepath) {
+      Ok(()) => {
+        wconsole::complete_str("[ G ] Get Contents".to_string());
+      },
+      Err(_e) => {
+        wconsole::err_str("[ X ] Error Can't get contents...".to_string());
+      }
+    }
   }
   else {
     edit_til::cat_til(args.arg_filepath, args.flag_html);

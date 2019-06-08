@@ -116,9 +116,9 @@ fn show_markdown(path: String, flag_html: bool) -> Result<(), String> {
 pub fn write_markdown(path: String, comment: String) {
   let mut f = BufWriter::new(
     fs::OpenOptions::new()
+      .create(true)
       .write(true)
       .append(true)
-      .create(true)
       .open(path)
       .expect("[Error] can't open file"));
 
