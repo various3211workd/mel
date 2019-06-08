@@ -4,7 +4,7 @@ use std::io::{BufReader, Read, BufWriter, Write};
 use std::{fs, str};
 use std::env::current_dir;
 
-use super::uname::get_init_path;
+use super::uname::get_inittree_path;
 use super::markdown;
 
 /*
@@ -48,7 +48,7 @@ pub fn cat_til(arg_path: String, flag_html: bool) {
   return None
 */
 pub fn cat_til_num(num: usize, flag_html: bool) {
-  let mut f = fs::File::open(get_init_path())
+  let mut f = fs::File::open(get_inittree_path())
     .expect("file not found");
   
   let mut contents = String::new();
@@ -71,7 +71,7 @@ pub fn cat_til_num(num: usize, flag_html: bool) {
   return None
 */
 pub fn write_til_num(num: usize, comment: String) {
-  let mut f = fs::File::open(get_init_path())
+  let mut f = fs::File::open(get_inittree_path())
     .expect("file not found");
   
   let mut contents = String::new();
