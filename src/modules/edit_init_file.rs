@@ -47,8 +47,7 @@ pub fn create_init() -> String {
     }
   }
 
-  let return_tree = inittree.to_string();
-  return_tree
+  inittree
 }
 
 /*
