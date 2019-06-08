@@ -91,7 +91,7 @@ fn main() {
   }
   // -g option
   else if args.flag_get {
-    match get_url::get_url(args.arg_url, args.arg_filepath) {
+    match options::get_url(args.arg_url, args.arg_filepath) {
       Ok(()) => {
         wconsole::complete_str("[ G ] Get Contents".to_string());
       },

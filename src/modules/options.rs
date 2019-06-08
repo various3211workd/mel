@@ -2,6 +2,7 @@ extern crate walkdir;
 extern crate pbr;
 
 use std::fs::*;
+use std::io::Result;
 use std::io::prelude::*;
 use std::io::BufWriter;
 use std::path::PathBuf;
@@ -9,6 +10,7 @@ use walkdir::WalkDir;
 
 use super::uname::*;
 use super::edit_init_file::*;
+use super::edit_til::write_markdown;
 
 /*
   show function
@@ -156,4 +158,39 @@ pub fn update() {
 
   f.write(inittree.as_bytes()).unwrap();
   
+}
+
+/*
+  get_url function
+
+  @param url String
+*/
+pub fn get_url(url: String, filepath: String) -> Result<()> {
+  
+  const INIT_PATH_LEN: usize = 3;
+  let mut init_path: String;
+
+  // path first elements is '/'
+  if filepath.chars().nth(0) != Some('/') {
+    init_path = "/".to_string() + &filepath;
+  }
+  else {
+    init_path = filepath.to_string();
+  }
+  
+  let init_path_vec: Vec<&str> = init_path.split("/").collect();
+  if init_path_vec.len() >= INIT_PATH_LEN {
+    create_dir_all(get_init_path() + &init_path.replace(init_path_vec[init_path_vec.len() - 1], ""))?;
+  }
+  
+  init_path = get_init_path() + &init_path;
+
+  let mut resp = reqwest::get("https://google.com").unwrap();
+
+  let mut s = String::new();
+  resp.read_to_string(&mut s)?;
+  
+  write_markdown(init_path, s);
+
+  Ok(())
 }
