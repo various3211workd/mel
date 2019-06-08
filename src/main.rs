@@ -38,10 +38,10 @@ struct Args {
   cmd_list: bool,       // list option
   cmd_update: bool,     // update option
   flag_number: bool,    // -n option
-  flag_html: bool,      // output html option
+  flag_html: bool,      // --html option
   flag_write: bool,     // -w option
-  flag_help: bool,
-  flag_version: bool,
+  flag_help: bool,      // -h option
+  flag_version: bool,   // -v option
   flag_delete: bool,    // -d option
   flag_get: bool,       // -g option
   arg_num: usize,

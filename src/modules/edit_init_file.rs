@@ -47,8 +47,7 @@ pub fn create_init() -> String {
     }
   }
 
-  let return_tree = inittree.to_string();
-  return_tree
+  inittree
 }
 
 /*
@@ -68,7 +67,7 @@ pub fn put_init_file(inittree: String) {
     OpenOptions::new()
       .write(true)
       .truncate(true)
-      .open(uname::get_init_path())
+      .open(uname::get_inittree_path())
       .expect("[Error] can't open file"));
 
   f.write(inittree.as_bytes()).unwrap();

@@ -1,4 +1,6 @@
 use std::env::*;
+use std::fs::*;
+use std::io::Read;
 
 /*
   get_username function
@@ -24,7 +26,7 @@ fn get_username() -> String {
 
   return String
 */
-pub fn get_init_path() -> String {
+pub fn get_inittree_path() -> String {
   "C:/Users/".to_owned() + &get_username() + "/.mel/initTree.json"
 }
 
@@ -35,4 +37,22 @@ pub fn get_init_path() -> String {
 */
 pub fn get_folder_path() -> String {
   "C:/Users/".to_owned() + &get_username() + "/.mel"
+}
+
+
+/*
+  get_init_path function
+
+  return String
+*/
+pub fn get_init_path() -> String {
+  let mut f = File::open(get_inittree_path()).expect("file not found");
+
+  let mut contents = String::new();
+  match f.read_to_string(&mut contents) {
+    Ok(_) => { },
+    Err(e) => { panic!("{}", e); }
+  }
+  
+  contents.split("&").collect::<Vec<&str>>()[0].to_owned()
 }

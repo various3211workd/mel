@@ -17,7 +17,7 @@ use super::edit_init_file::*;
 */
 pub fn show() {
 
-  let mut f = File::open(get_init_path()).expect("file not found");
+  let mut f = File::open(get_inittree_path()).expect("file not found");
 
   let mut contents = String::new();
   match f.read_to_string(&mut contents) {
@@ -59,7 +59,7 @@ pub fn show() {
   return None
 */
 pub fn delete(delete_string: String) {
-  let mut f = File::open(get_init_path()).expect("file not found");
+  let mut f = File::open(get_inittree_path()).expect("file not found");
 
   let mut contents = String::new();
   f.read_to_string(&mut contents).unwrap();
@@ -102,7 +102,7 @@ pub fn update() {
 
   let mut contents = String::new();
   
-  let mut f = File::open(get_init_path())
+  let mut f = File::open(get_inittree_path())
     .expect("file not found");
   
   f.read_to_string(&mut contents)
@@ -151,7 +151,7 @@ pub fn update() {
     OpenOptions::new()
       .write(true)
       .truncate(true)
-      .open(get_init_path())
+      .open(get_inittree_path())
       .expect("[Error] can't open file"));
 
   f.write(inittree.as_bytes()).unwrap();
