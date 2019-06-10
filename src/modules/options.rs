@@ -185,7 +185,7 @@ pub fn get_url(url: String, filepath: String) -> Result<()> {
   
   init_path = get_init_path() + &init_path;
 
-  let mut resp = reqwest::get("https://google.com").unwrap();
+  let mut resp = reqwest::get(&url).unwrap();
 
   let mut s = String::new();
   resp.read_to_string(&mut s)?;
