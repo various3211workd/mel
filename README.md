@@ -108,3 +108,16 @@ Simple editing of TIL is possible.
 PS>./mel -wn 9 "pencil is my father"
 [ W ] Write Complete
 ```
+
+### Get Content
+
+```powershell
+./mel -g <url> <filepath>
+```
+
+example
+
+```powershell
+PS>./mel -g https://google.com get_contents/google_home.md
+[ G ] Get ontents
+```
