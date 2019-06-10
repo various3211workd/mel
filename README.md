@@ -19,7 +19,7 @@ move release tab and donwload
 ### Specification of til
 Execute in the directory you want to register to mel.
 
-```
+```powershell
 PS>./mel init
 
 [ o ] Init Complete
@@ -30,7 +30,7 @@ Record the file under the init directory.
 
 If the name ends with "README.md", "README.md" is omitted, but it is displayed if it is directly under the init directory.
 
-```
+```powershell
 PS>./mel list
 
 [ <3 ] TIL List
@@ -51,7 +51,7 @@ PS>./mel list
 
 add -d option is delete string.
 
-```
+```powershell
 PS>./mel -d security
 
 [ <3 ] TIL List
@@ -70,14 +70,14 @@ PS>./mel -d security
 
 ### show tils  
 
-```
-.PS>/mel -n [list_number]
+```powershell
+PS>./mel -n [list_number]
 ```
 
 You can see the til file at the terminal.  
 It is written in html.
 
-```
+```powershell
 PS>./mel -n 5
 # args
 
@@ -88,14 +88,14 @@ cargo run --args ***
 ### List Update
 Update mel directory's init directory
 
-```
+```powershell
 PS>mel update
 [ U ] Update Complete
 ```
 
 ### Put html
 Show Html code.
-```
+```powershell
 PS>./mel -n 5 --html
 <h1>args</h1>
 <h2>cargo run時にパスを渡す</h2>
@@ -104,7 +104,7 @@ PS>./mel -n 5 --html
 
 ### Write TIL
 Simple editing of TIL is possible.
-```
+```powershell
 PS>./mel -wn 9 "pencil is my father"
 [ W ] Write Complete
 ```
