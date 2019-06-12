@@ -15,7 +15,7 @@ Usage:
   mel list
   mel <filepath> [--html]
   mel -n <num> [--html]
-  mel -g <url> <filepath>
+  mel -g <url> [filepath]
   mel -d <string>
   mel -wn <num> <string>
   mel (--help | --version)
