@@ -1,6 +1,7 @@
 extern crate walkdir;
 
 use std::io::{BufReader, Read, BufWriter, Write};
+use std::io::Result;
 use std::{fs, str};
 use std::env::current_dir;
 
@@ -12,7 +13,7 @@ use super::markdown;
   @param arg_path :String
   return None
 */
-pub fn cat_til(arg_path: String, flag_html: bool) {
+pub fn cat_til(arg_path: String, flag_html: bool) -> Result<()> {
 
   let mut path = current_dir()
     .unwrap()
@@ -27,10 +28,10 @@ pub fn cat_til(arg_path: String, flag_html: bool) {
   }
   path.push_str(&arg_path);
   
-  let mut fs = BufReader::new(fs::File::open(path).unwrap()); // buffering read
+  let mut fs = BufReader::new(fs::File::open(path)?);
   let mut buf = vec![];
   
-  fs.read_to_end(&mut buf).unwrap();
+  fs.read_to_end(&mut buf)?;
 
   if flag_html {
     markdown::parsing_html(str::from_utf8(&buf).unwrap().to_string());
@@ -38,6 +39,8 @@ pub fn cat_til(arg_path: String, flag_html: bool) {
   else {
     markdown::parsing(str::from_utf8(&buf).unwrap().to_string());
   }
+
+  Ok(())
 }
 
 /*
@@ -47,18 +50,18 @@ pub fn cat_til(arg_path: String, flag_html: bool) {
 
   return None
 */
-pub fn cat_til_num(num: usize, flag_html: bool) {
-  let mut f = fs::File::open(get_inittree_path())
-    .expect("file not found");
+pub fn cat_til_num(num: usize, flag_html: bool) -> Result<()> {
+  let mut f = fs::File::open(get_inittree_path())?;
   
   let mut contents = String::new();
-  f.read_to_string(&mut contents)
-    .expect("something went wrong reading the file");
+  f.read_to_string(&mut contents)?;
   
   let init_path: Vec<&str> = contents.split("&").collect();
   
   // init file path loop
-  show_markdown(init_path[num].to_string(), flag_html).unwrap();
+  show_markdown(init_path[num].to_string(), flag_html)?;
+
+  Ok(())
 }
 
 
@@ -70,17 +73,17 @@ pub fn cat_til_num(num: usize, flag_html: bool) {
 
   return None
 */
-pub fn write_til_num(num: usize, comment: String) {
-  let mut f = fs::File::open(get_inittree_path())
-    .expect("file not found");
+pub fn write_til_num(num: usize, comment: String) -> Result<()> {
+  let mut f = fs::File::open(get_inittree_path())?;
   
   let mut contents = String::new();
-  f.read_to_string(&mut contents)
-    .expect("something went wrong reading the file");
+  f.read_to_string(&mut contents)?;
   
   let init_path: Vec<&str> = contents.split("&").collect();
   
   write_markdown(init_path[num].to_string(), comment);
+  
+  Ok(())
 }
 
 /*
@@ -90,10 +93,10 @@ pub fn write_til_num(num: usize, comment: String) {
 
   return Result<(), String>
 */
-fn show_markdown(path: String, flag_html: bool) -> Result<(), String> {
+fn show_markdown(path: String, flag_html: bool) -> Result<()> {
   let mut f = BufReader::new(fs::File::open(path).unwrap()); // buffering read
   let mut buf = vec![];
-  f.read_to_end(&mut buf).unwrap();
+  f.read_to_end(&mut buf)?;
 
   if flag_html {
     markdown::parsing_html(str::from_utf8(&buf).unwrap().to_string());

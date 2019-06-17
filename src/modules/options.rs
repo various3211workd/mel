@@ -18,9 +18,9 @@ use super::edit_til::write_markdown;
 
   return None
 */
-pub fn show() {
+pub fn show() -> Result<()> {
 
-  let mut f = File::open(get_inittree_path()).expect("file not found");
+  let mut f = File::open(get_inittree_path())?;
 
   let mut contents = String::new();
   match f.read_to_string(&mut contents) {
@@ -52,6 +52,8 @@ pub fn show() {
     }
     index += 1;
   }
+
+  Ok(())
 }
 
 /*
@@ -61,11 +63,11 @@ pub fn show() {
 
   return None
 */
-pub fn delete(delete_string: String) {
-  let mut f = File::open(get_inittree_path()).expect("file not found");
+pub fn delete(delete_string: String) -> Result<()> {
+  let mut f = File::open(get_inittree_path())?;
 
   let mut contents = String::new();
-  f.read_to_string(&mut contents).unwrap();
+  f.read_to_string(&mut contents)?;
 
   let init_path: Vec<&str> = contents.split("&").collect();
   let mut inittree = "".to_string();  
@@ -85,6 +87,8 @@ pub fn delete(delete_string: String) {
   }
   
   put_init_file(inittree);
+  
+  Ok(())
 }
 
 /*
@@ -92,8 +96,10 @@ pub fn delete(delete_string: String) {
 
   return <Ok(),>
 */
-pub fn init() {
+pub fn init() -> Result<()> {
   put_init_file(create_init());
+  
+  Ok(())
 }
 
 /*
@@ -101,15 +107,13 @@ pub fn init() {
 
   return None
 */
-pub fn update() {
+pub fn update() -> Result<()> {
 
   let mut contents = String::new();
   
-  let mut f = File::open(get_inittree_path())
-    .expect("file not found");
+  let mut f = File::open(get_inittree_path())?;
   
-  f.read_to_string(&mut contents)
-    .expect("something went wrong reading the file");
+  f.read_to_string(&mut contents)?;
   
   let init_path: Vec<&str> = contents.split("&").collect();
   let mut inittree = "".to_string();  
@@ -122,7 +126,7 @@ pub fn update() {
   for entry in WalkDir::new(&init_path[0]).into_iter().filter_map(|e| e.ok()) {
     if entry.file_name().to_string_lossy().ends_with(".md") {
       let path = PathBuf::from(String::from(entry.path().display().to_string()));
-      let cwd = canonicalize(&path).unwrap();
+      let cwd = canonicalize(&path)?;
       match cwd.into_os_string().into_string() {
         Ok(p_str) => {
           // create full path
@@ -145,20 +149,18 @@ pub fn update() {
   }
 
   // create .mel folder
-  create_dir_all(get_folder_path()).unwrap_or_else(|why| {
-    println!("! {:?}", why.kind());
-  });
+  create_dir_all(get_folder_path())?;
   
   // create initTree.init file
   let mut f = BufWriter::new(
     OpenOptions::new()
       .write(true)
       .truncate(true)
-      .open(get_inittree_path())
-      .expect("[Error] can't open file"));
+      .open(get_inittree_path())?);
 
   f.write(inittree.as_bytes()).unwrap();
   
+  Ok(())
 }
 
 /*

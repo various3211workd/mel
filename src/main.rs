@@ -30,7 +30,7 @@ Options:
   
   --html     Put html
 ";
-const VERSION: &'static str = "v1.0.2";
+const VERSION: &'static str = "v1.0.3";
 
 #[derive(Deserialize)]
 struct Args {
@@ -68,26 +68,54 @@ fn main() {
   }
   // list
   else if args.cmd_list {
-    options::show();
+    match options::show(){
+      Ok(()) => { },
+      Err(_) => {
+        wconsole::err_str("[ X ] Error Can't show contents...".to_string());
+      }
+    }
   }
   // -d option
   else if args.flag_delete {
-    options::delete(args.arg_string);
-    wconsole::complete_str("\n[ D ] delete Complete".to_string());
+    match options::delete(args.arg_string) {
+      Ok(()) => {
+        wconsole::complete_str("\n[ D ] delete Complete".to_string());
+      },
+      Err(_) => {
+        wconsole::err_str("[ X ] Error Can't delete contents...".to_string());
+      }
+    }
   }
   // init file update
   else if args.cmd_update {
-    options::update();
-    wconsole::complete_str("[ U ] Update Complete".to_string());
+    match options::update() {
+      Ok(()) => {
+        wconsole::complete_str("[ U ] Update Complete".to_string());
+      },
+      Err(_) => {
+        wconsole::err_str("[ X ] Error Can't update contents...".to_string());
+      }
+    }
   }
   // -wn option
   else if args.flag_write {
-    edit_til::write_til_num(args.arg_num, args.arg_string);
-    wconsole::complete_str("[ W ] Write Complete".to_string());
+    match edit_til::write_til_num(args.arg_num, args.arg_string) {
+      Ok(()) => {
+        wconsole::complete_str("[ W ] Write Complete".to_string());
+      },
+      Err(_) => {
+        wconsole::err_str("[ X ] Error Can't write contents...".to_string());
+      }
+    }
   }
   // -n option
   else if args.flag_number {
-    edit_til::cat_til_num(args.arg_num, args.flag_html);
+    match edit_til::cat_til_num(args.arg_num, args.flag_html) {
+      Ok(()) => { },
+      Err(_) => {
+        wconsole::err_str("[ X ] Error Can't Read contents...".to_string());
+      }
+    }
   }
   // -g option
   else if args.flag_get {
@@ -95,12 +123,17 @@ fn main() {
       Ok(()) => {
         wconsole::complete_str("[ G ] Get Contents".to_string());
       },
-      Err(_e) => {
+      Err(_) => {
         wconsole::err_str("[ X ] Error Can't get contents...".to_string());
       }
     }
   }
   else {
-    edit_til::cat_til(args.arg_filepath, args.flag_html);
+    match edit_til::cat_til(args.arg_filepath, args.flag_html) {
+      Ok(()) => { },
+      Err(_) => {
+        wconsole::err_str("[ X ] Error Can't Read contents...".to_string());
+      }
+    }
   }
 }
