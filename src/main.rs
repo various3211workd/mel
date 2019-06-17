@@ -63,8 +63,14 @@ fn main() {
     println!("{}", VERSION);
   }
   else if args.cmd_init {
-    options::init();
-    wconsole::complete_str("[ o ] Init Complete".to_string());
+    match options::init(){
+      Ok(()) => {
+        wconsole::complete_str("[ o ] Init Complete".to_string());
+      },
+      Err(_) => {
+        wconsole::err_str("[ X ] Error Can't init contents...".to_string());
+      }
+    }
   }
   // list
   else if args.cmd_list {
