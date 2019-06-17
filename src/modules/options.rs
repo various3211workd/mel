@@ -61,11 +61,11 @@ pub fn show() {
 
   return None
 */
-pub fn delete(delete_string: String) {
-  let mut f = File::open(get_inittree_path()).expect("file not found");
+pub fn delete(delete_string: String) -> Result<()> {
+  let mut f = File::open(get_inittree_path())?;
 
   let mut contents = String::new();
-  f.read_to_string(&mut contents).unwrap();
+  f.read_to_string(&mut contents)?;
 
   let init_path: Vec<&str> = contents.split("&").collect();
   let mut inittree = "".to_string();  
@@ -85,6 +85,8 @@ pub fn delete(delete_string: String) {
   }
   
   put_init_file(inittree);
+  
+  Ok(())
 }
 
 /*

@@ -72,8 +72,14 @@ fn main() {
   }
   // -d option
   else if args.flag_delete {
-    options::delete(args.arg_string);
-    wconsole::complete_str("\n[ D ] delete Complete".to_string());
+    match options::delete(args.arg_string) {
+      Ok(()) => {
+        wconsole::complete_str("\n[ D ] delete Complete".to_string());
+      },
+      Err(_) => {
+        wconsole::err_str("[ X ] Error Can't delete contents...".to_string());
+      }
+    }
   }
   // init file update
   else if args.cmd_update {
@@ -95,7 +101,7 @@ fn main() {
       Ok(()) => {
         wconsole::complete_str("[ G ] Get Contents".to_string());
       },
-      Err(_e) => {
+      Err(_) => {
         wconsole::err_str("[ X ] Error Can't get contents...".to_string());
       }
     }
