@@ -1,25 +1,6 @@
-use std::env::*;
+use std::env;
 use std::fs::*;
 use std::io::Read;
-
-/*
-  get_username function
-  
-  return String
-*/
-fn get_username() -> String {
-  let user_name = match var_os("USERNAME") {
-    Some(val) => {
-      match val.into_string() {
-        Ok(val) => { val },
-        Err(e) => { panic!("{:?}", e); }
-      }
-    },
-    None => { panic!("can't get user name..."); }
-  };
-
-  user_name
-}
 
 /*
   get_init_path function
@@ -27,7 +8,12 @@ fn get_username() -> String {
   return String
 */
 pub fn get_inittree_path() -> String {
-  "C:/Users/".to_owned() + &get_username() + "/.mel/initTree.json"
+  let user_name = match env::home_dir() {
+    Some(val) => { val.display().to_string() + "/.mel/initTree.json" },
+    None => { panic!("can't get user name..."); }
+  };
+
+  user_name
 }
 
 /*
@@ -36,7 +22,12 @@ pub fn get_inittree_path() -> String {
   return String
 */
 pub fn get_folder_path() -> String {
-  "C:/Users/".to_owned() + &get_username() + "/.mel"
+  let user_name = match env::home_dir() {
+    Some(val) => { val.display().to_string() + "/.mel" },
+    None => { panic!("can't get user name..."); }
+  };
+
+  user_name
 }
 
 
@@ -46,7 +37,7 @@ pub fn get_folder_path() -> String {
   return String
 */
 pub fn get_init_path() -> String {
-  let mut f = File::open(get_inittree_path()).expect("file not found");
+  let mut f = File::open(get_inittree_path()).unwrap();
 
   let mut contents = String::new();
   match f.read_to_string(&mut contents) {

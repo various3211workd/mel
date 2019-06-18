@@ -108,9 +108,7 @@ pub fn init() -> Result<()> {
   return None
 */
 pub fn update() -> Result<()> {
-
   let mut contents = String::new();
-  
   let mut f = File::open(get_inittree_path())?;
   
   f.read_to_string(&mut contents)?;
