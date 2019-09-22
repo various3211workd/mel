@@ -57,13 +57,43 @@ pub fn cat_til_num(num: usize, flag_html: bool) -> Result<()> {
   f.read_to_string(&mut contents)?;
   
   let init_path: Vec<&str> = contents.split("&").collect();
+  let show_file_str_len = init_path[num].to_string().len();
   
+  print!("┏━━━━━━┳");
+  put_markdown_line(show_file_str_len);
+  println!("┓");
+  
+  println!("┃ Show ┃ [ {} ] ┃",
+    init_path[num].to_string());
+
+  print!("┗━━━━━━┻");
+  put_markdown_line(show_file_str_len);
+  println!("┛");
+
   // init file path loop
   show_markdown(init_path[num].to_string(), flag_html)?;
 
   Ok(())
 }
 
+/*
+  put_markdown_line function
+
+  @param path_len: usize
+
+  return None
+*/
+fn put_markdown_line(path_len: usize) {
+  let padding = 5;
+  let mut counter = 0;
+  loop {
+    counter += 1;
+    print!("━");
+    if counter > path_len + padding {
+      break;
+    }
+  }
+}
 
 /*
   write_til_num function

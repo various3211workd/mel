@@ -95,13 +95,11 @@ pub fn parsing(buf: String) {
         con.fg(Intense::Yes, Color::Magenta).unwrap();
       }
       else if count == 0 {
-        println!("");
         code_syntax = false;
         con.reset().unwrap();
       }
     }
     else if word == '\n' && syntax_lang_flag {
-      println!("");
       syntax_lang_flag = false;
     }
     // '*' or '_' or '-' 横線
