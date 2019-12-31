@@ -153,7 +153,7 @@ pub fn write_markdown(path: String, comment: String) {
       .write(true)
       .append(true)
       .open(path)
-      .expect("[Error] can't open file"));
+      .expect("[Error] can't write markdown"));
 
   f.write(format!("{}{}", "\n\n", comment).as_bytes()).unwrap();
 }

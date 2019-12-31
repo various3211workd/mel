@@ -1,10 +1,6 @@
 extern crate termcolor;
 
-use wincolor::{
-  Console, 
-  Color, 
-  Intense
-};
+use std::io::Write;
 use termcolor::{
   StandardStream, 
   Color, 
@@ -22,8 +18,8 @@ use termcolor::{
 */
 pub fn complete_str(text :String) {
   let mut stdout = StandardStream::stdout(ColorChoice::Always);
-  stdout.set_color(ColorSpec::new().set_fg(Some(Color::Cyan)))?;
-  writeln!(&mut stdout, text).unwrap();
+  stdout.set_color(ColorSpec::new().set_fg(Some(Color::Cyan))).unwrap();
+  writeln!(&mut stdout, "{}", text).unwrap();
 }
 
 /*
@@ -35,6 +31,6 @@ pub fn complete_str(text :String) {
 */
 pub fn err_str(text :String) {
   let mut stdout = StandardStream::stdout(ColorChoice::Always);
-  stdout.set_color(ColorSpec::new().set_fg(Some(Color::Magenta)))?;
-  writeln!(&mut stdout, text).unwrap();
+  stdout.set_color(ColorSpec::new().set_fg(Some(Color::Magenta))).unwrap();
+  writeln!(&mut stdout, "{}", text).unwrap();
 }

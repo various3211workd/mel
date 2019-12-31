@@ -1,0 +1,123 @@
+extern crate termcolor;
+
+use termcolor::{
+  StandardStream, 
+  Color, 
+  ColorChoice, 
+  ColorSpec, 
+  WriteColor
+};
+
+use pulldown_cmark::{html, Parser};
+
+/*
+  parsing_html function
+
+  markdonw -> put html layout
+
+  @param String
+*/
+pub fn parsing_html(buf: String) {
+  let parser = Parser::new(&buf);
+
+  let mut html_buf = String::new();
+  html::push_html(&mut html_buf, parser);
+
+  println!("{}", html_buf);
+}
+
+/*
+  parsing_html function
+
+  markdonw -> put console layout
+  
+  @param String
+*/
+pub fn parsing(buf: String) {
+  let mut midashi: bool = false;          // midashi flag. start '#' on true
+  let mut code_syntax: bool = false;      // code syntax flag. start '`' on true
+  let mut comment_flag: bool = false;     // comment flag. start '>' on true
+  let mut syntax_lang_flag: bool = false; // syatx highlight lang flag
+  let mut count: i32 = 0;                 // counter
+ 
+  // linux console setup
+  let mut con = StandardStream::stdout(ColorChoice::Always);
+    
+  // 構文解析
+  for word in buf.chars() {
+    
+    // 見出しで始まるとき
+    if word == '#' && !code_syntax {
+      midashi = true;
+      count += 1;
+    }
+    // 見出し文字 '#' が終わったとき。出力する
+    else if midashi {
+      match count {
+        1 => {con.set_color(ColorSpec::new().set_fg(Some(Color::Yellow))).unwrap();}
+        2 => {con.set_color(ColorSpec::new().set_fg(Some(Color::Green))).unwrap();}
+        3 => {con.set_color(ColorSpec::new().set_fg(Some(Color::Blue))).unwrap();}
+        _ => {con.set_color(ColorSpec::new().set_fg(Some(Color::Cyan))).unwrap();}
+      }
+      print!("{}", word);
+
+      // 改行があった場合
+      if word == '\n' {
+        midashi = false;
+        count = 0;
+        con.reset().unwrap();
+      }
+    }
+    // comment '>'
+    else if word == '>' && !code_syntax {
+      con.set_color(ColorSpec::new().set_fg(Some(Color::Black))).unwrap();
+      comment_flag = true;
+    }
+    // comment文字 '>' が終わったとき。出力する
+    else if comment_flag {
+      print!("{}", word);
+
+      // コメント時に改行があった場合
+      if word == '\n' {
+        con.reset().unwrap();
+        comment_flag = false;
+      }
+    }
+    // code highlight
+    else if word == '`' {
+      if count < 3 && !code_syntax && word != '\n' { 
+        count += 1;
+      }
+      else {
+        count -= 1;
+      }
+      if count == 3 {
+        code_syntax = true;
+        syntax_lang_flag = true;
+        con.set_color(ColorSpec::new().set_fg(Some(Color::Magenta))).unwrap();
+      }
+      else if count == 0 {
+        code_syntax = false;
+        con.reset().unwrap();
+      }
+    }
+    else if word == '\n' && syntax_lang_flag {
+      syntax_lang_flag = false;
+    }
+    // '*' or '_' or '-' 横線
+    else if word == '*' || word == '_' || word == '-' {
+
+    }
+    // '-' リスト
+    else if word == '-' {
+
+    }
+    // '*' or '_' 強調表示
+    else if word == '*' {
+
+    }
+    else if !syntax_lang_flag {
+      print!("{}", word);
+    }
+  }
+}
